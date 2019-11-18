@@ -15,7 +15,7 @@ const AddressAutocomplete = props => {
   };
 
   const searchOptions = {
-    types: ["(cities)"]
+    types: ["address"]
   };
 
   return (
