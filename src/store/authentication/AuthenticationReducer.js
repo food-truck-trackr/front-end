@@ -1,9 +1,8 @@
+import { LOGOUT, SUCCESS } from "./AuthenticationTypes";
+
 const authenticationInitialState = {
-  username: "",
-  password: "",
-  email: "",
-  diner: false,
-  operator: false
+  user: {},
+  isAuthenticated: false
 };
 
 export const AuthenticationReducer = (
@@ -11,6 +10,18 @@ export const AuthenticationReducer = (
   action
 ) => {
   switch (action.type) {
+    case SUCCESS:
+      return {
+        user: action.payload,
+        isAuthenticated: true
+      };
+
+    case LOGOUT:
+      return {
+        user: {},
+        isAuthenticated: false
+      };
+
     default:
       return state;
   }

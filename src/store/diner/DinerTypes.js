@@ -1,0 +1,2 @@
+export const CHANGE_LOCATION = "CHANGE_LOCATION";
+export const ADD_FAVORITE = "ADD_FAVORITE";
