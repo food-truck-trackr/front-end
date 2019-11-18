@@ -1,10 +1,10 @@
 import React from "react";
-import CustomerRating from "./components/diner/CustomerRating";
+import DinerDashboard from "./components/diner/DinerDashboard";
 
 function App() {
   return (
     <div className="App">
-      <CustomerRating />
+      <DinerDashboard />
     </div>
   );
 }
