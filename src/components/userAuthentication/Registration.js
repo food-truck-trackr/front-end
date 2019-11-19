@@ -45,6 +45,11 @@ const RegForm = ({values, errors, touched, status}) => {
         <button type="submit">Register</button>
       
       </Form>
+
+      {/* {user.map(person => (
+        key={person.id};
+        name={person.userName};
+      ))} */}
     </div>
 
   )//closes RegForm return
