@@ -1,11 +1,11 @@
 import React, {useState, useEffect} from "react";
 import { withFormik, Form, Field } from "formik";
 import * as yup from "yup"
-import Axios from "axios";
+import axios from "axios";
 
 const RegForm = ({values, errors, touched, status}) => {
   const [user, setUser] = useState([]);
-  console.log(values, "values")
+  // console.log(values, "values")
 
   useEffect (() => {
     status && setUser(user => [...user, status]);
@@ -18,28 +18,33 @@ const RegForm = ({values, errors, touched, status}) => {
         <Field type="email" name="email" placeholder="email" />
         {touched.email && errors.email && (<p className="errors">{errors.email}</p>)}
         
-        <Field type="text" name="user name" placeholder="username" />
-        {touched.userName && errors.userName && (<p className="errors">"Please enter a valid user name."</p>)}
+        <Field type="text" name="username" placeholder="username" />
+        {touched.username && errors.username && (<p className="errors">{errors.username}</p>)}
         
         <Field type="password" name="password" placeholder="password" />
         <p>*Password must be between 6 and 12 characters in length.</p>
         {touched.password && errors.password && (<p className="errors">{errors.password}</p>)}
-        
+{/*         
         <Field type="password" name="passwordVerify" placeholder="confirm password" />
         {touched.passwordVerify && errors.passwordVerify && (<p className="errors">"You must confirm you password!"</p>)}        
-        
-        <Field type="text" name="phone" placeholder="ex: 123-456-7890" />
-        {touched.phone && errors.phone && (<p className="errors">{errors.phone}</p>)}        
+         */}
+        <Field type="text" name="name" placeholder="name" />
+        {touched.name && errors.name && (<p className="errors">{errors.name}</p>)}        
         
         <div>
-        <label classname="checkbox-container">
+        {/* <label classname="checkbox-container">
             Yes! I would like to receive future promotions and FoodTruck TrackR location updates via text message!</label>
-        <Field type="checkbox" name="consent" checked={values.consent}/>
+        <Field type="checkbox" name="consent" checked={values.consent}/> */}
         </div>
         <div>
-        <label classname="checkbox-container">
-            I am a food truck owner/operator and would like to register as a FoodTruck TrackR Operator  </label>
-        <Field type="checkbox" name="operator" checked={values.operator}/>
+        <label className="role">
+            I would like to register as a FoodTruck TrackR </label>
+        <Field as="select" name="role">
+        <option>...select</option>
+        <option value="diner">Diner</option>
+        <option value="operator">Operator</option>
+        {touched.role && errors.role && (<p className="errors">{errors.role}</p>)}   
+        </Field>
         </div>
 
         <button type="submit">Register</button>
@@ -58,60 +63,64 @@ const RegForm = ({values, errors, touched, status}) => {
 
 const FormikRegistration = withFormik({
   mapPropsToValues({
-    userName, 
+    username, 
     email, 
     password, 
-    passwordVerify, 
-    phone, 
-    consent, 
-    operator}) 
+    // passwordVerify, 
+    name,
+    // phone, 
+    // consent, 
+    role}) 
     {
     return{
-      userName: userName || "",
+      username: username || "",
       email: email || "",
       password: password || "",
-      passwordVerify: passwordVerify || "",
-      phone: phone || "",
-      consent: consent || false,
-      operator: operator || false
+      // passwordVerify: passwordVerify || "",
+      name: name || "",
+      //phone: phone || "",
+      // consent: consent || false,
+      role: role || false
     };
   },
 
   validationSchema: yup.object().shape({
     email: yup
       .string()
-      .label('email')
+      .label("email")
       .email()
       .required(),
-    userName: yup
+    username: yup
       .string()
-      .label('userName')
+      .label("userName")
       .required(),
     password: yup
       .string()
-      .label('password')
-      .required()
-      .min(6, 'Password must be at least 6 characters long.')
-      .max(10, 'Password must not exceed 12 characters.'),
-    passwordVerify: yup
+      .label("password")
+      .required("Password is required")
+      .min(6, "Password must be at least 6 characters long.")
+      .max(10, "Password must not exceed 12 characters."),
+    // passwordVerify: yup
+      // .string()
+      // .label("passwordVerify")
+      // .oneOf([yup.ref("password"), null], "Passwords must match!"),
+    name: yup
       .string()
-      .label('passwordVerify')
-      .required(),
-    phone: yup
-      .string()
-      .label('phone'),
-    consent: yup
-      .boolean(),
+      .label("name")
+      .required("Name is required"),
+    // consent: yup
+    //   .boolean(),
       //needs .required if phone number has been entered
-    operator: yup
-      .boolean(),
+    role: yup
+      .string()
+      .required(),
   }),
 
   handleSubmit(values, {setStatus}) {
-    Axios
-    .post()
+    axios
+    .post("https://food-truck-trakr.herokuapp.com/api/register", values)
     .then(response => {
-      console.log(response.data);
+      console.log(response.data, "user values");
       setStatus(response.data);
       //if operator.value =true && email/username is unique
       //register operator and return operator landing page
@@ -120,6 +129,7 @@ const FormikRegistration = withFormik({
       //else if  email/username is unique
       //register diner and return diner landing page
       //else return email/username alread registered 
+      //history.push to diner or operator dashboard
     })
     .catch(err => console.log(err.response));
   }
