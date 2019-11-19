@@ -21,7 +21,7 @@ function App() {
         </nav> */}
       </header>
       {/* <div>Login Form</div> */}
-      <DinerDashboard />
+      {/* <DinerDashboard /> */}
       <Switch>
         <PrivateRoute path="/dinerdash" component={DinerDashboard} />
       </Switch>
