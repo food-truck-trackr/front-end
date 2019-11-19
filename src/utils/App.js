@@ -1,9 +1,5 @@
 import React from "react";
-
-import { Switch, Link, Route } from "react-router-dom";
-import Navigation from "./components/Navigation";
-import Registration from "./components/userAuthentication/Registration";
-import Login from "./components/userAuthentication/Login";
+import { Switch, Link } from "react-router-dom";
 import PrivateRoute from "./utils/PrivateRoute";
 import DinerDashboard from "./components/diner/DinerDashboard";
 
@@ -14,9 +10,18 @@ function App() {
 
   return (
     <div className="App">
-      <Navigation />
-      <Route path="/Registration" component={Registration} />
-      <Route path="/Login" component={Login} />
+      <header className="header">
+        <h1>Food Truck Trackr</h1>
+        {/* <nav>
+          <ul>
+            {loggedIn && <Link to="/" onClick={logout}>
+              <li>Logout</li>
+            </Link>}           
+          </ul>
+        </nav> */}
+      </header>
+      {/* <div>Login Form</div> */}
+      <DinerDashboard />
       <Switch>
         <PrivateRoute path="/dinerdash" component={DinerDashboard} />
       </Switch>

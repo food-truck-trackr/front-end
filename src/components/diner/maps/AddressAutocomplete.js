@@ -64,8 +64,8 @@ const AddressAutocomplete = props => {
               <Paper component="form" className={classes.root}>
                 <InputBase
                   {...getInputProps({
-                    placeholder: "Search by location...",
-                    className: "Demo__search-input"
+                    placeholder: "Search by location..."
+                    // className: "Demo__search-input"
                   })}
                   inputProps={{ "aria-label": "search google maps" }}
                 />
