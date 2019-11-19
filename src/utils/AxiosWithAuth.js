@@ -1,5 +1,3 @@
-import { Redirect } from "react-router-dom";
-import React from "react";
 import axios from "axios";
 
 export const axiosWithAuth = () => {
@@ -9,6 +7,6 @@ export const axiosWithAuth = () => {
     headers: {
       Authorization: token
     },
-    baseURL: ""
+    baseURL: "https://food-truck-trakr.herokuapp.com/api"
   });
 };

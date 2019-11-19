@@ -3,6 +3,7 @@ import PlacesAutocomplete, {
   geocodeByAddress,
   getLatLng
 } from "react-places-autocomplete";
+import { classnames } from "./../../../utils/helpers";
 
 const AddressAutocomplete = props => {
   const [location, setLocation] = useState("");
@@ -15,11 +16,15 @@ const AddressAutocomplete = props => {
   };
 
   const searchOptions = {
-    types: ["(cities)"]
+    types: ["address"]
+  };
+
+  const closeClick = () => {
+    setLocation("");
   };
 
   return (
-    <>
+    <div className="search">
       <PlacesAutocomplete
         value={location}
         onChange={setLocation}
@@ -27,7 +32,63 @@ const AddressAutocomplete = props => {
         searchOptions={searchOptions}
       >
         {({ getInputProps, suggestions, getSuggestionItemProps, loading }) => (
-          <div className="search-container">
+          <div className="Demo__search-bar-container">
+            <div className="Demo__search-input-container">
+              <input
+                {...getInputProps({
+                  placeholder: "Search Places...",
+                  className: "Demo__search-input"
+                })}
+              />
+              {location.length > 0 && (
+                // <i
+                //   class="fas fa-times"
+                //   className="Demo__clear-button"
+                //   onClick={closeClick}
+                // ></i>
+                <button className="Demo__clear-button" onClick={closeClick}>
+                  x
+                </button>
+              )}
+            </div>
+            {suggestions.length > 0 && (
+              <div className="Demo__autocomplete-container">
+                {suggestions.map(suggestion => {
+                  const className = classnames("Demo__suggestion-item", {
+                    "Demo__suggestion-item--active": suggestion.active
+                  });
+
+                  return (
+                    /* eslint-disable react/jsx-key */
+                    <div {...getSuggestionItemProps(suggestion, { className })}>
+                      <strong>{suggestion.formattedSuggestion.mainText}</strong>{" "}
+                      <small>
+                        {suggestion.formattedSuggestion.secondaryText}
+                      </small>
+                    </div>
+                  );
+                  /* eslint-enable react/jsx-key */
+                })}
+                <div className="Demo__dropdown-footer">
+                  <div>
+                    {/* <img
+                    src={require('../images/powered_by_google_default.png')}
+                    className="Demo__dropdown-footer-image"
+                  /> */}
+                  </div>
+                </div>
+              </div>
+            )}
+          </div>
+        )}
+      </PlacesAutocomplete>
+    </div>
+  );
+};
+
+export default AddressAutocomplete;
+
+/* <div className="search-container">
             <label htmlFor="search"></label>
             <div className="search-wrapper">
               <input
@@ -53,11 +114,4 @@ const AddressAutocomplete = props => {
                 })}
               </div>
             )}
-          </div>
-        )}
-      </PlacesAutocomplete>
-    </>
-  );
-};
-
-export default AddressAutocomplete;
+          </div> */
