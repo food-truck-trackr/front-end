@@ -5,21 +5,15 @@ const OperatorDashboard = () => {
 
   <div>
     <div>
-    {/* Build Truck "Cards" from truck.js with uploaded truck image */}
+    {/* Build Truck "Cards" from truck.js with uploaded truck image 
+    git request to pul operator.id and bring trucks as array 
+    and then map to display minitrucks.js*/}
+
     </div>
     
-    <Link>
+    {/* Link to addtruckform.js <Link>
     <button type="submit">Add Truck</button>
-    </Link>
-    
-    <Link>
-    <button type="submit">Edit Truck</button>
-    </Link>
-    
-    <Link>
-    <button type="submit">Delete Truck</button>
-    {/* need delete confirmation ALERT */}
-    </Link>
+    </Link> */}
 
   </div>
 
