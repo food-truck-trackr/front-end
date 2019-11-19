@@ -5,7 +5,7 @@ const OperatorDashboard = () => {
 
   <div>
     <div>
-    {/* Display Truck "Cards" from truck.js with uploaded truck image */}
+    {/* Build Truck "Cards" from truck.js with uploaded truck image */}
     </div>
     
     <Link>
