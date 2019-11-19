@@ -1,5 +1,7 @@
 import React, { useEffect } from "react";
 import { GoogleMap, withGoogleMap } from "react-google-maps";
+import { connect } from "react-redux";
+import { getCurrentLocation } from "./../store/diner/DinerActions";
 
 const Map = props => {
   //move this to actions
@@ -9,14 +11,14 @@ const Map = props => {
         lat: position.coords.latitude,
         lng: position.coords.longitude
       };
-      props.setCenter(pos);
+      props.getCurrentLocation(pos);
     });
   }, []);
 
   return (
     <GoogleMap
       defaultZoom={14}
-      center={props.center}
+      center={props.currentLocation}
       defaultOptions={{
         disableDefaultUI: true
       }}
@@ -26,4 +28,10 @@ const Map = props => {
 
 const TruckMap = withGoogleMap(Map);
 
-export default TruckMap;
+const mapStateToProps = state => {
+  return {
+    currentLocation: state.diner.currentLocation
+  };
+};
+
+export default connect(mapStateToProps, { getCurrentLocation })(TruckMap);

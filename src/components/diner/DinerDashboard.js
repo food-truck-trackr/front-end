@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
-import AddressAutocomplete from "./maps/AddressAutocomplete";
-import TruckMap from "./maps/TruckMap";
+import AddressAutocomplete from "../../maps/AddressAutocomplete";
+import TruckMap from "../../maps/TruckMap";
 import FavoriteTrucks from "./FavoriteTrucks";
 import Truck from "./../trucks/Truck";
 import MiniTruck from "./../trucks/MiniTruck";

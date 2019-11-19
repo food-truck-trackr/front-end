@@ -3,7 +3,7 @@ import PlacesAutocomplete, {
   geocodeByAddress,
   getLatLng
 } from "react-places-autocomplete";
-import { classnames } from "./../../../utils/helpers";
+import { classnames } from "./../utils/helpers";
 import { makeStyles } from "@material-ui/core/styles";
 import Paper from "@material-ui/core/Paper";
 import Divider from "@material-ui/core/Divider";

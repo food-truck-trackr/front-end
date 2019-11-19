@@ -1,4 +1,4 @@
-import * as types from "./DinerTypes";
+import { SET_LOCATION, GET_CURRENT_LOCATION, ADD_FAVORITE } from "./DinerTypes";
 
 const dinerInitialState = {
   role: "diner",
@@ -11,7 +11,13 @@ const dinerInitialState = {
 
 export const dinerReducer = (state = dinerInitialState, action) => {
   switch (action.type) {
-    case types.CHANGE_LOCATION:
+    case GET_CURRENT_LOCATION:
+      return {
+        ...state,
+        currentLocation: action.payload
+      };
+
+    case SET_LOCATION:
       return {
         ...state,
         currentLocation: {
@@ -20,7 +26,7 @@ export const dinerReducer = (state = dinerInitialState, action) => {
         }
       };
 
-    case types.ADD_FAVORITE:
+    case ADD_FAVORITE:
       return {
         // action.payload is truck object
         ...state,

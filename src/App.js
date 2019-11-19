@@ -1,5 +1,4 @@
 import React from "react";
-
 import { Switch, Link, Route } from "react-router-dom";
 import Navigation from "./components/Navigation";
 import Registration from "./components/userAuthentication/Registration";
@@ -15,7 +14,7 @@ function App() {
   return (
     <div className="App">
       <DinerDashboard />
-      <Navigation />
+      {/* <Navigation /> */}
       <Route path="/Registration" component={Registration} />
       <Route path="/Login" component={Login} />
       <Switch>

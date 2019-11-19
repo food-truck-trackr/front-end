@@ -1,16 +1,14 @@
-import React, { useState, useEffect } from "react";
+// libraries
+import React from "react";
 import { withFormik, Form, Field } from "formik";
-import axios from "axios";
+import axiosWithAuth from "./../../utils/AxiosWithAuth";
 import * as yup from "yup";
+import { connect } from "react-redux";
 
-const LoginForm = ({ values, errors, touched, status }) => {
-  const [user, setUser] = useState([]);
-  console.log(values, "values");
+//actions
+import { login } from "./../../store/authentication/";
 
-  useEffect(() => {
-    status && setUser(user => [...user, status]);
-  }, [status]);
-
+const LoginForm = ({ errors, touched, ...props }) => {
   return (
     <div className="login-form">
       <Form>
@@ -55,20 +53,22 @@ const FormikLogin = withFormik({
       .max(10, "Password must not exceed 12 characters.")
   }),
 
-  handleSubmit(values, { setStatus }) {
-    axios
+  handleSubmit(values, { props }) {
+    axiosWithAuth()
       .post("https://food-truck-trakr.herokuapp.com/api/login", values)
       .then(response => {
         console.log(response.data);
-        setStatus(response.data);
-        //if email/username matches registered user
-        //return login user to operator/diner landing page
-        //else if email/username is not found
-        //return ALERT - you must register to continue
-        //return user to registration page on ALERT clear.
+        props.login(response.data);
+        console.log("props.isAuthenticated", props.isAuthenticated);
       })
       .catch(err => console.log(err.response));
   }
 })(LoginForm);
 
-export default FormikLogin;
+const mapStateToProps = state => {
+  return {
+    isAuthenticated: state.auth.isAuthenticated
+  };
+};
+
+export default connect(mapStateToProps, { login })(FormikLogin);
