@@ -5,20 +5,24 @@ const CustomerRating = () => {
   const [rating, setRating] = useState(0);
 
   const changeRating = newRating => {
-    setRating(newRating);
+    setRating(newRating); //dispatches to customer ratings array
   };
 
   return (
-    <Ratings
-      rating={rating}
-      widgetRatedColors="rgb(229,186,51)"
-      changeRating={changeRating}
-    >
-      <Ratings.Widget widgetHoverColor="rgb(229,186,51)" />
-      <Ratings.Widget widgetHoverColor="rgb(229,186,51)" />
-      <Ratings.Widget widgetHoverColor="rgb(229,186,51)" />
-      <Ratings.Widget widgetHoverColor="rgb(229,186,51)" />
-    </Ratings>
+    <div>
+      <h3>Add your rating</h3>
+      <Ratings
+        rating={rating}
+        widgetRatedColors="rgb(229,186,51)"
+        changeRating={changeRating}
+      >
+        <Ratings.Widget widgetHoverColor="rgb(229,186,51)" />
+        <Ratings.Widget widgetHoverColor="rgb(229,186,51)" />
+        <Ratings.Widget widgetHoverColor="rgb(229,186,51)" />
+        <Ratings.Widget widgetHoverColor="rgb(229,186,51)" />
+        <Ratings.Widget widgetHoverColor="rgb(229,186,51)" />
+      </Ratings>
+    </div>
   );
 };
 

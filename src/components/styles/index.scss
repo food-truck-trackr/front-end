@@ -1,5 +1,12 @@
+// general styles
 @import "App";
 @import "Navigation";
 @import "Login";
 @import "Registration";
-@import "OperatorDashboard"
+@import "OperatorDashboard";
+
+// variables & mixins
+
+// components
+@import "truck";
+@import "autocomplete";
