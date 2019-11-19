@@ -12,6 +12,8 @@ const dinerInitialState = {
 export const dinerReducer = (state = dinerInitialState, action) => {
   switch (action.type) {
     case GET_CURRENT_LOCATION:
+      console.log("action", action);
+      console.log("currentLocation", state.currentLocation);
       return {
         ...state,
         currentLocation: action.payload

@@ -1,23 +1,38 @@
 import React, { useState, useEffect } from "react";
 import AddressAutocomplete from "../../maps/AddressAutocomplete";
+import { connect } from "react-redux";
 import TruckMap from "../../maps/TruckMap";
 import FavoriteTrucks from "./FavoriteTrucks";
 import Truck from "./../trucks/Truck";
 import MiniTruck from "./../trucks/MiniTruck";
+import { getCurrentLocation } from "./../../store/diner/DinerActions";
 
-const DinerDashBoard = () => {
+const DinerDashBoard = props => {
   const apiUrl = "AIzaSyAxYI7Q1dv5IBOpnPxezE78oZnYcdGDmug";
-  const [center, setCenter] = useState({ lat: 33.8938, lng: 35.5018 }); //this goes to the backend
+  const [center, setCenter] = useState({});
+
+  let currentLocation = () => {
+    navigator.geolocation.getCurrentPosition(function(position) {
+      var pos = {
+        lat: position.coords.latitude,
+        lng: position.coords.longitude
+      };
+      props.getCurrentLocation(pos);
+    });
+  };
 
   useEffect(() => {
-    //dispatch action to update currentLocation
-  }, [center]);
+    currentLocation();
+  }, []);
 
   return (
     <div>
       <Truck />
       <MiniTruck />
-      <AddressAutocomplete setCenter={setCenter} />
+      <AddressAutocomplete
+        setCenter={setCenter}
+        currentLocation={currentLocation}
+      />
       <TruckMap
         className="map"
         googleMapURL={`https://maps.googleapis.com/maps/api/js?v=3.exp&libraries=geometry,drawing,places&key=${apiUrl}`}
@@ -32,4 +47,4 @@ const DinerDashBoard = () => {
   );
 };
 
-export default DinerDashBoard;
+export default connect(null, { getCurrentLocation })(DinerDashBoard);

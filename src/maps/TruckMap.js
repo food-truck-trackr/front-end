@@ -5,15 +5,16 @@ import { getCurrentLocation } from "./../store/diner/DinerActions";
 
 const Map = props => {
   //move this to actions
-  useEffect(() => {
-    navigator.geolocation.getCurrentPosition(function(position) {
-      var pos = {
-        lat: position.coords.latitude,
-        lng: position.coords.longitude
-      };
-      props.getCurrentLocation(pos);
-    });
-  }, []);
+  // useEffect(() => {
+  //   props.getCurrentLocation();
+  //   navigator.geolocation.getCurrentPosition(function(position) {
+  //     var pos = {
+  //       lat: position.coords.latitude,
+  //       lng: position.coords.longitude
+  //     };
+  //     props.getCurrentLocation(pos);
+  //   });
+  // }, []);
 
   return (
     <GoogleMap
