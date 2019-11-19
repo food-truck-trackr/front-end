@@ -1,8 +1,10 @@
 // general styles
+@import "reset";
 @import "App";
 
 // variables & mixins
 
 // components
+@import "header";
 @import "truck";
 @import "autocomplete";

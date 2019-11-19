@@ -4,9 +4,36 @@ import PlacesAutocomplete, {
   getLatLng
 } from "react-places-autocomplete";
 import { classnames } from "./../../../utils/helpers";
+import { makeStyles } from "@material-ui/core/styles";
+import Paper from "@material-ui/core/Paper";
+import Divider from "@material-ui/core/Divider";
+import IconButton from "@material-ui/core/IconButton";
+import SearchIcon from "@material-ui/icons/Search";
+import DirectionsIcon from "@material-ui/icons/Directions";
+import InputBase from "@material-ui/core/InputBase";
+const useStyles = makeStyles(theme => ({
+  root: {
+    padding: "2px 4px",
+    display: "flex",
+    alignItems: "center",
+    width: 400
+  },
+  input: {
+    marginLeft: theme.spacing(1),
+    flex: 1
+  },
+  iconButton: {
+    padding: 10
+  },
+  divider: {
+    height: 28,
+    margin: 4
+  }
+}));
 
 const AddressAutocomplete = props => {
   const [location, setLocation] = useState("");
+  const classes = useStyles();
 
   const handleSelect = async value => {
     const results = await geocodeByAddress(value);
@@ -34,18 +61,33 @@ const AddressAutocomplete = props => {
         {({ getInputProps, suggestions, getSuggestionItemProps, loading }) => (
           <div className="Demo__search-bar-container">
             <div className="Demo__search-input-container">
-              <input
-                {...getInputProps({
-                  placeholder: "Search Places...",
-                  className: "Demo__search-input"
-                })}
-              />
+              <Paper component="form" className={classes.root}>
+                <InputBase
+                  {...getInputProps({
+                    placeholder: "Search by location...",
+                    className: "Demo__search-input"
+                  })}
+                  inputProps={{ "aria-label": "search google maps" }}
+                />
+                <IconButton
+                  type="submit"
+                  className={classes.iconButton}
+                  aria-label="search"
+                >
+                  <SearchIcon />
+                </IconButton>
+                <Divider className={classes.divider} orientation="vertical" />
+                <IconButton
+                  color="primary"
+                  className={classes.iconButton}
+                  aria-label="directions"
+                  // onClick={props.setCenter}
+                >
+                  <DirectionsIcon />
+                </IconButton>
+              </Paper>
+
               {location.length > 0 && (
-                // <i
-                //   class="fas fa-times"
-                //   className="Demo__clear-button"
-                //   onClick={closeClick}
-                // ></i>
                 <button className="Demo__clear-button" onClick={closeClick}>
                   x
                 </button>

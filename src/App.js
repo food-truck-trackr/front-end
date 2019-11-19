@@ -1,6 +1,7 @@
 import React from "react";
 import { Switch, Link } from "react-router-dom";
 import PrivateRoute from "./utils/PrivateRoute";
+import DinerDashboard from "./components/diner/DinerDashboard";
 
 function App() {
   // const logout = () => {
@@ -9,20 +10,20 @@ function App() {
 
   return (
     <div className="App">
-      <header>
+      <header className="header">
         <h1>Food Truck Trackr</h1>
-        <nav>
+        {/* <nav>
           <ul>
-            {/* {loggedIn && <Link to="/" onClick={logout}>
+            {loggedIn && <Link to="/" onClick={logout}>
               <li>Logout</li>
-            </Link>}            */}
+            </Link>}           
           </ul>
-        </nav>
+        </nav> */}
       </header>
-      <div>Login Form</div>
+      {/* <div>Login Form</div> */}
+      <DinerDashboard />
       <Switch>
-        <PrivateRoute path="/dinerdash" />
-        <PrivateRoute path="/operatordash" />
+        <PrivateRoute path="/dinerdash" component={DinerDashboard} />
       </Switch>
     </div>
   );
