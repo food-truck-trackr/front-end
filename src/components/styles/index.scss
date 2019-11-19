@@ -1,7 +1,9 @@
 // general styles
+@import "reset";
 @import "App";
 
 // components
+@import "header";
 @import "truck";
 @import "autocomplete";
 @import "Navigation";
