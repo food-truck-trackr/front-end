@@ -1,6 +1,11 @@
 import React from "react";
-import { Switch, Link } from "react-router-dom";
+
+import {Switch, LinkRoute} from "react-router-dom";
+import Navigation from "./components/Navigation";
+import Registration from "./components/userAuthentication/Registration";
+import Login from "./components/userAuthentication/Login";
 import PrivateRoute from "./utils/PrivateRoute";
+
 
 function App() {
   // const logout = () => {
@@ -9,17 +14,9 @@ function App() {
 
   return (
     <div className="App">
-      <header>
-        <h1>Food Truck Trackr</h1>
-        <nav>
-          <ul>
-            {/* {loggedIn && <Link to="/" onClick={logout}>
-              <li>Logout</li>
-            </Link>}            */}
-          </ul>
-        </nav>
-      </header>
-      <div>Login Form</div>
+      <Navigation />
+      <Route path="/Registration" component={Registration} />
+      <Route path="/Login" component={Login} />
       <Switch>
         <PrivateRoute path="/dinerdash" />
         <PrivateRoute path="/operatordash" />

@@ -1,0 +1,4 @@
+@mixin JustAlign($justify, $align){
+  justify-content: $justify;
+  align-content: $align;
+};
