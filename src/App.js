@@ -14,6 +14,7 @@ function App() {
 
   return (
     <div className="App">
+      <DinerDashboard />
       <Navigation />
       <Route path="/Registration" component={Registration} />
       <Route path="/Login" component={Login} />

@@ -8,19 +8,21 @@ import { makeStyles } from "@material-ui/core/styles";
 import Paper from "@material-ui/core/Paper";
 import Divider from "@material-ui/core/Divider";
 import IconButton from "@material-ui/core/IconButton";
-import SearchIcon from "@material-ui/icons/Search";
 import DirectionsIcon from "@material-ui/icons/Directions";
 import InputBase from "@material-ui/core/InputBase";
+
 const useStyles = makeStyles(theme => ({
   root: {
-    padding: "2px 4px",
+    padding: "0 20px 0 20px",
     display: "flex",
+    justifyContent: "space-between",
     alignItems: "center",
-    width: 400
+    width: 460
   },
   input: {
     marginLeft: theme.spacing(1),
-    flex: 1
+    flex: 1,
+    width: "400px"
   },
   iconButton: {
     padding: 10
@@ -60,39 +62,27 @@ const AddressAutocomplete = props => {
       >
         {({ getInputProps, suggestions, getSuggestionItemProps, loading }) => (
           <div className="Demo__search-bar-container">
-            <div className="Demo__search-input-container">
+            <>
               <Paper component="form" className={classes.root}>
                 <InputBase
                   {...getInputProps({
                     placeholder: "Search by location..."
-                    // className: "Demo__search-input"
                   })}
                   inputProps={{ "aria-label": "search google maps" }}
                 />
-                <IconButton
-                  type="submit"
-                  className={classes.iconButton}
-                  aria-label="search"
-                >
-                  <SearchIcon />
-                </IconButton>
-                <Divider className={classes.divider} orientation="vertical" />
-                <IconButton
-                  color="primary"
-                  className={classes.iconButton}
-                  aria-label="directions"
-                  // onClick={props.setCenter}
-                >
-                  <DirectionsIcon />
-                </IconButton>
+                <div className="search-bar-icons">
+                  <Divider className={classes.divider} orientation="vertical" />
+                  <IconButton
+                    color="primary"
+                    className={classes.iconButton}
+                    aria-label="directions"
+                    // onClick={props.setCenter}
+                  >
+                    <DirectionsIcon />
+                  </IconButton>
+                </div>
               </Paper>
-
-              {location.length > 0 && (
-                <button className="Demo__clear-button" onClick={closeClick}>
-                  x
-                </button>
-              )}
-            </div>
+            </>
             {suggestions.length > 0 && (
               <div className="Demo__autocomplete-container">
                 {suggestions.map(suggestion => {
