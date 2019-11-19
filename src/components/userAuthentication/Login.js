@@ -1,77 +1,78 @@
-import React, {useState, useEffect} from "react";
+import React, { useState, useEffect } from "react";
 import { withFormik, Form, Field } from "formik";
-import Axios from "axios";
+import axios from "axios";
 import * as yup from "yup";
 
-const LoginForm = ({values, errors, touched, status}) => {
+const LoginForm = ({ values, errors, touched, status }) => {
   const [user, setUser] = useState([]);
-  console.log(values, "values")
+  console.log(values, "values");
 
-  useEffect (() => {
+  useEffect(() => {
     status && setUser(user => [...user, status]);
-  }, [status])
+  }, [status]);
 
-  return(
+  return (
+    <div className="login-form">
+      <Form>
+        <Field type="text" name="username" placeholder="username" />
+        {touched.username && errors.username && (
+          <p className="errors">"Please enter a valid user name."</p>
+        )}
 
-  <div className="login-form">
-    <Form>
-      
-      <Field type="text" name="user name" placeholder="username" />
-      {touched.userName && errors.userName && 
-      (<p className="errors">"Please enter a valid user name."</p>)}
+        <Field type="password" name="password" placeholder="password" />
+        <p>*Password must be between 6 and 12 characters in length.</p>
+        {touched.password && errors.password && (
+          <p className="errors">{errors.password}</p>
+        )}
 
-      <Field type="password" name="password" placeholder="password" />
-      <p>*Password must be between 6 and 12 characters in length.</p>
-      {touched.password && errors.password && 
-      (<p className="errors">{errors.password}</p>)}
+        <Field component="select" name="role">
+          <option value="diner">Diner</option>
+          <option value="operator">Operator</option>
+        </Field>
 
-      <button type="submit">Login</button>
-      {/* if userName is not registered
+        <button type="submit">Login</button>
+        {/* if username is not registered
       return ALERT - user not found, please register to Login
       and return user to registration page on alert message accept */}
-    
-    </Form>
-  </div>
-  )
+      </Form>
+    </div>
+  );
 };
 
 const FormikLogin = withFormik({
-  mapPropsToValues({
-    userName,
-    password})
-    {
-    return{
-      userName: userName || "",
-      password: password || "",
+  mapPropsToValues({ username, password }) {
+    return {
+      username: username || "",
+      password: password || ""
     };
   },
 
   validationSchema: yup.object().shape({
-    userName: yup
+    username: yup
       .string()
-      .label('userName')
+      .label("username")
       .required(),
     password: yup
       .string()
-      .label('password')
+      .label("password")
       .required()
-      .min(6, 'Password must be at least 6 characters long.')
-      .max(10, 'Password must not exceed 12 characters.'),
+      .min(6, "Password must be at least 6 characters long.")
+      .max(10, "Password must not exceed 12 characters.")
   }),
 
-  handleSubmit(values, {setStatus}) {
-    Axios
-    .post()
-    .then(response => {
-      console.log(response.data);
-      setStatus(response.data);
-      //if email/username matches registered user
-      //return login user to operator/diner landing page
-      //else if email/username is not found
-      //return ALERT - you must register to continue
-      //return user to registration page on ALERT clear.
-    })
-    .catch(err => console.log(err.response));
+  handleSubmit(values, { setStatus }) {
+    axios
+      .post()
+      .then(response => {
+        console.log(response.data);
+        setStatus(response.data);
+        //if email/username matches registered user
+        //return login user to operator/diner landing page
+        //else if email/username is not found
+        //return ALERT - you must register to continue
+        //return user to registration page on ALERT clear.
+      })
+      .catch(err => console.log(err.response));
   }
 })(LoginForm);
 
