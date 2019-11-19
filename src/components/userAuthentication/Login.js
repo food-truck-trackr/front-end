@@ -25,13 +25,8 @@ const LoginForm = ({ values, errors, touched, status }) => {
           <p className="errors">{errors.password}</p>
         )}
 
-        <Field component="select" name="role">
-          <option value="diner">Diner</option>
-          <option value="operator">Operator</option>
-        </Field>
-
         <button type="submit">Login</button>
-        {/* if username is not registered
+        {/* if userName is not registered
       return ALERT - user not found, please register to Login
       and return user to registration page on alert message accept */}
       </Form>
@@ -62,7 +57,7 @@ const FormikLogin = withFormik({
 
   handleSubmit(values, { setStatus }) {
     axios
-      .post()
+      .post("https://food-truck-trakr.herokuapp.com/api/login", values)
       .then(response => {
         console.log(response.data);
         setStatus(response.data);
