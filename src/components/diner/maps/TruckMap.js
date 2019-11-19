@@ -2,6 +2,7 @@ import React, { useEffect } from "react";
 import { GoogleMap, withGoogleMap } from "react-google-maps";
 
 const Map = props => {
+  //move this to actions
   useEffect(() => {
     navigator.geolocation.getCurrentPosition(function(position) {
       var pos = {

@@ -1,4 +1,5 @@
 // general styles
+@import "reset";
 @import "App";
 
 
@@ -6,6 +7,7 @@
 @import "Mixins";
 
 // components
+@import "header";
 @import "truck";
 @import "autocomplete";
 @import "Navigation";

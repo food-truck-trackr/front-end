@@ -33,39 +33,6 @@
   position: relative;
 }
 
-.Demo__search-input,
-.Demo__search-input:focus,
-.Demo__search-input:active {
-  box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.16), 0 0 0 1px rgba(0, 0, 0, 0.08);
-  border: honeydew;
-  display: block;
-  width: 100%;
-  padding: 16px;
-  font-size: 16px;
-  border-radius: 2px;
-  outline: none;
-  width: 100%;
-}
-
-.Demo__clear-button,
-.Demo__clear-button:active,
-.Demo__clear-button:focus {
-  position: absolute;
-  right: 16px;
-  top: 50%;
-  transform: translateY(-50%);
-  background: transparent;
-  border: none;
-  outline: none;
-  font-weight: 600;
-  font-size: 1.3rem;
-  color: #999;
-  &:hover {
-    cursor: pointer;
-    color: red;
-  }
-}
-
 .Demo__autocomplete-container {
   border-bottom: honeydew;
   border-left: honeydew;
@@ -89,27 +56,10 @@
   background-color: #fafafa;
 }
 
-.Demo__dropdown-footer {
+input.MuiInputBase-input {
+  width: 400px;
+}
+
+.search-bar-icons {
   display: flex;
-  justify-content: flex-end;
-  padding: 4px;
-}
-
-.Demo__dropdown-footer-image {
-  display: inline-block;
-  width: 150px;
-}
-
-.Demo__spinner {
-  color: #18bc9c;
-  font-size: 30px;
-}
-
-.Demo__error-message {
-  color: red;
-}
-
-.Demo__geocode-result-header {
-  font-size: 20px;
-  color: #222222;
 }
