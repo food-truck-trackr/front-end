@@ -9,7 +9,7 @@ const dinerInitialState = {
   favoriteTrucks: []
 };
 
-export const DinerReducer = (state = dinerInitialState, action) => {
+export const dinerReducer = (state = dinerInitialState, action) => {
   switch (action.type) {
     case types.CHANGE_LOCATION:
       return {

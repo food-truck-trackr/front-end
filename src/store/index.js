@@ -3,9 +3,9 @@ import { createStore, combineReducers, compose, applyMiddleware } from "redux";
 import thunk from "redux-thunk";
 
 // Reducers
-import authenticationReducer from "./authentication/AuthenticationReducer";
-import dinerReducer from "./diner/DinerReducer";
-import operatorReducer from "./operator/OperatorReducer";
+import { authenticationReducer } from "./authentication/AuthenticationReducer";
+import { dinerReducer } from "./diner/DinerReducer";
+import { operatorReducer } from "./operator/OperatorReducer";
 
 //
 const combinedReducers = combineReducers({

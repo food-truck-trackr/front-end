@@ -5,7 +5,7 @@ const authenticationInitialState = {
   isAuthenticated: false
 };
 
-export const AuthenticationReducer = (
+export const authenticationReducer = (
   state = authenticationInitialState,
   action
 ) => {

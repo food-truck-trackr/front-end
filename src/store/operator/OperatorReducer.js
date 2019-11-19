@@ -1,5 +1,6 @@
 import * as types from "./OperatorTypes";
-const OperatorInitialState = {
+
+const operatorInitialState = {
   role: "operator",
   trucksOwned: [],
   newTruck: {
@@ -37,7 +38,7 @@ const OperatorInitialState = {
   isEditing: false
 };
 
-export const OperatorReducer = (state = OperatorInitialState, action) => {
+export const operatorReducer = (state = operatorInitialState, action) => {
   switch (action.type) {
     case types.ADD_TRUCK:
       return {
@@ -59,7 +60,7 @@ export const OperatorReducer = (state = OperatorInitialState, action) => {
         //filter through array of trucks and return only those that do not match action.payload.id
       };
 
-    case types.ADD_RATING:
+    case types.ADD_TRUCK_RATING:
       return {
         //map over and find truck with correct id
         //add rating to array of ratings

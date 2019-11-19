@@ -10,6 +10,9 @@ import CardActions from "@material-ui/core/CardActions";
 import IconButton from "@material-ui/core/IconButton";
 import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
 import placeholderTruck from "./../assets/placeholder-truck.jpg";
+import CustomerRating from "../diner/CustomerRating";
+import CustomerRatingAvg from "./CustomerRatingAvg";
+import Fav from "./Fav";
 
 const useStyles = makeStyles(theme => ({
   media: {
@@ -29,11 +32,19 @@ const useStyles = makeStyles(theme => ({
 }));
 
 const Truck = () => {
+  const [fav, setFav] = useState(false);
   const classes = useStyles();
   const [expanded, setExpanded] = useState(false);
 
   const handleExpandClick = () => {
     setExpanded(!expanded);
+  };
+
+  const makeFavorite = () => {
+    // where to get truck object from?
+    // dispatch({ type: ADD_FAVORITE, payload: truck });
+    setFav(!fav);
+    console.log("clicked");
   };
 
   return (
@@ -47,7 +58,14 @@ const Truck = () => {
       <div className="card-info">
         <CardContent>
           <p>Average customer rating</p>
-          <p>Current Location: address</p>
+          {/*conditional: if there is no departure time, just return current location, otherwise return
+          
+          */}
+          <p>address</p>
+
+          <Fav />
+          <CustomerRating />
+          <CustomerRatingAvg />
         </CardContent>
       </div>
       <div className="card-menu">
