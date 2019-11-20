@@ -76,6 +76,7 @@ const AddTruckForm = ({ errors, touched, values, status }) => {
               label="Leaving for next location"
               type="datetime-local"
               defaultValue="2019-01-01T00:00"
+              name='departureTime'
               className={classes.textField}
               InputLabelProps={{
                 shrink: true,
@@ -93,6 +94,7 @@ const AddTruckForm = ({ errors, touched, values, status }) => {
               label="Arriving at next location"
               type="datetime-local"
               defaultValue="2019-01-01T00:00"
+              name='arrivaltime'
               className={classes.textField}
               InputLabelProps={{
                 shrink: true,
@@ -101,7 +103,7 @@ const AddTruckForm = ({ errors, touched, values, status }) => {
           </form>
         </div>
 
-        <CustomBtn type='submit'>Submit your truck info!</CustomBtn>
+        <CustomBtn type='submit' onClick={handleSubmit()}>Submit your truck info!</CustomBtn>
 
       </Form>
 
@@ -129,9 +131,9 @@ const FormikAddTruckForm = withFormik({
       .required('Please select a quisine type!')
   }), 
 
-  handleSubmit(values, { setStatus }) {
+  handleSubmit(truckName, cusisineSelect, departureTime, arrivalTime, { setStatus }) {
     axios
-      .post('https://food-truck-trakr.herokuapp.com/api/trucks', values)
+      .post('https://food-truck-trakr.herokuapp.com/api/trucks', truckName, cusisineSelect, departureTime, arrivalTime)
       .then(res => {
         setStatus(res.data);
       })

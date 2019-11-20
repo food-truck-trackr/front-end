@@ -7,7 +7,7 @@ import { classnames } from "./../../utils/helpers";
 
 const TruckFormLocation = props => {
   const [location, setLocation] = useState("");
-  const [coordinates, setCoordinates] = useState({});
+  const [coordinates, setCoordinates] = useState({'40.678177 -73.944160'});
 
   const handleSelect = async value => {
     const results = await geocodeByAddress(value);
@@ -21,7 +21,7 @@ const TruckFormLocation = props => {
   };
 
   return (
-    <div className="search">
+    <div>
       <PlacesAutocomplete
         value={location}
         onChange={setLocation}
