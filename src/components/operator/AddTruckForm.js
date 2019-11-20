@@ -3,20 +3,41 @@ import { Form, Field, withFormik } from 'formik';
 import * as Yup from 'yup';
 import axios from 'axios';
 
+import { FormDiv, H1, CustomInput, CustomBtn } from '../styles/StyledComponents';
+
+// material-ui imports
+import { makeStyles } from '@material-ui/core/styles';
+import TextField from '@material-ui/core/TextField';
+
 const AddTruckForm = ({ errors, touched, values, status }) => {
   const [truck, setTruck] = useState([]);
   useEffect(() => {
     status && setTruck(truck => [...truck, status]);
   }, [status]);
 
+  // useStyles and classes declared for date pickers
+  const useStyles = makeStyles(theme => ({
+    container: {
+      display: 'flex',
+      flexWrap: 'wrap',
+    },
+    textField: {
+      marginLeft: theme.spacing(1),
+      marginRight: theme.spacing(1),
+      width: 300,
+    },
+  }));
+
+  const classes = useStyles();
+
   return (
-    <div className='addTruckForm'>
-      <h1>Truck Operator: Add your truck info here!</h1>
-      
+    <FormDiv>
+      <H1>Truck Operator: Add your truck info here!</H1>
+
       <Form>
 
         {/* Truck name */}
-        <Field type='text' name='truckName' placeholder='Truck Name' />
+        <Field as={CustomInput} type='text' name='truckName' placeholder='Truck Name' />
         {touched.truckName && errors.truckName && (
           <p className='error'>{errors.truckName}</p>
         )}
@@ -41,21 +62,52 @@ const AddTruckForm = ({ errors, touched, values, status }) => {
         {/* Current location */}
 
         {/* Next location */}
+        <h2>What is the next location for your truck?</h2>
 
         {/* Departure Time */}
+        <h2>When will you be leaving for your next location?</h2>
+        <div className='datePickerContain'>
+          <form className={classes.container} noValidate>
+            <TextField
+              id="datetime-local"
+              label="Leaving for next location"
+              type="datetime-local"
+              defaultValue="2019-01-01T00:00"
+              className={classes.textField}
+              InputLabelProps={{
+                shrink: true,
+              }}
+            />
+          </form>
+        </div>
 
         {/* Arrival Time */}
+        <h2>When will you be arriving at your next location?</h2>
+        <div className='datePickerContain'>
+          <form className={classes.container} noValidate>
+            <TextField
+              id="datetime-local"
+              label="Arriving at next location"
+              type="datetime-local"
+              defaultValue="2019-01-01T00:00"
+              className={classes.textField}
+              InputLabelProps={{
+                shrink: true,
+              }}
+            />
+          </form>
+        </div>
 
-        <button type='submit'>Submit your truck info!</button>
+        <CustomBtn type='submit'>Submit your truck info!</CustomBtn>
 
       </Form>
 
       {/* Button Linked to Menu Form */}
       <div className='menuButton'>
-        <button>Add menu info for your truck!</button>
+        <CustomBtn>Add menu info for your truck!</CustomBtn>
       </div>
 
-    </div>
+    </FormDiv>
   )
 }
 
