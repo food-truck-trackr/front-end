@@ -1,7 +1,13 @@
-import React from "react";
-import { GoogleMap, withGoogleMap } from "react-google-maps";
+import React, { useState } from "react";
+import {
+  GoogleMap,
+  withGoogleMap,
+  Marker,
+  InfoWindow
+} from "react-google-maps";
 import { connect } from "react-redux";
 import { getCurrentLocation } from "./../store/diner/DinerActions";
+import { trucks } from "../dummydata";
 
 const Map = props => {
   return (
@@ -11,7 +17,19 @@ const Map = props => {
       defaultOptions={{
         disableDefaultUI: true
       }}
-    ></GoogleMap>
+    >
+      {trucks.map(truck => {
+        return (
+          <Marker
+            key={truck.id}
+            position={{
+              lat: truck.currentLocation.lat,
+              lng: truck.currentLocation.lng
+            }}
+          />
+        );
+      })}
+    </GoogleMap>
   );
 };
 
