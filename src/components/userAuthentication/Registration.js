@@ -4,7 +4,7 @@ import * as yup from "yup"
 import axios from "axios";
 
 const RegForm = ({values, errors, touched, status}) => {
-  const [user, setUser] = useState([]);
+  const [setUser] = useState([]);
   // console.log(values, "values")
 
   useEffect (() => {
@@ -22,7 +22,7 @@ const RegForm = ({values, errors, touched, status}) => {
         {touched.username && errors.username && (<p className="errors">user name is a required field</p>)}
         
         <Field type="password" name="password" placeholder="password" />
-        <p>*Password must be between 6 and 12 characters in length.</p>
+        <p>*Password must be at least 6 characters in length.</p>
         {touched.password && errors.password && (<p className="errors">{errors.password}</p>)}
         
         <Field type="password" name="passwordVerify" placeholder="confirm password" />
@@ -42,11 +42,10 @@ const RegForm = ({values, errors, touched, status}) => {
         <label className="role">
           I would like to register as a FoodTruck TrackR </label>
         <Field as="select" name="role">
-          <option hidden={true}>...select</option>
-          <option disabled="disabled" default={true}>...select</option>
-          <option value="diner">Diner</option>
-          <option value="operator">Operator</option>
-          {touched.role && errors.role && (<p className="errors">{errors.role}</p>)}   
+          <option type="boolean" hidden={true}>...select</option>
+          <option type="boolean" disabled="disabled" default={true}>...select</option>
+          <option type="text" value="diner">Diner</option>
+          <option type="text" value="operator">Operator</option>
         </Field>
         </div>
 
@@ -89,19 +88,22 @@ const FormikRegistration = withFormik({
     password: yup
       .string()
       .required("Password is required")
-      .min(6, "Password must be at least 6 characters long.")
+      .min(6, "Password must be at least 6 characters.")
       .max(10, "Password must not exceed 12 characters."),
     passwordVerify: yup
       .string()
-      .required("Must confirm Password!")
-      .oneOf([yup.ref("password"), null], "Passwords must match!"),
-    
+      .required("Must confirm password!")
+      // .oneOf([yup.ref("password"), null], "Passwords must match!"),
+      .test("passwords-match", "Passwords must match!", function(val) {
+        return this.parent.password === val;}),
       name: yup
       .string()
       .required("Name is required"),
     role: yup
       .string()
-      .required(),
+      .required("Must register as either diner or operator")
+      .test("role-filled", "Must register as either diner or operator", function(val) {
+        return "diner" === val || "operator" === val}),
   }),
 
   handleSubmit(values, {setStatus}) {
@@ -118,7 +120,7 @@ const FormikRegistration = withFormik({
     axios
     .post("https://food-truck-trakr.herokuapp.com/api/register", person)
     .then(response => {
-      console.log(person);
+      // console.log(person);
       console.log(response.data, "user values");
       setStatus(response.data);
       //if operator.value =true && email/username is unique
