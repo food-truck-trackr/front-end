@@ -1,0 +1,59 @@
+.map {
+  position: absolute;
+}
+
+.search {
+  position: absolute;
+  z-index: 10;
+  left: 1950px;
+  top: 150px;
+}
+
+input.MuiInputBase-input {
+  width: 400px;
+}
+
+.search-bar-icons {
+  display: flex;
+}
+
+.Demo__autocomplete-container {
+  border-bottom: honeydew;
+  border-left: honeydew;
+  border-right: honeydew;
+  border-top: 1px solid #e6e6e6;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+  border-radius: 0 0 2px 2px;
+  max-width: 500px;
+  width: 100%;
+  z-index: 100;
+}
+
+.Demo__suggestion-item {
+  padding: 8px;
+  text-align: left;
+  background-color: #fff;
+  cursor: pointer;
+}
+
+.Demo__suggestion-item--active {
+  background-color: #fafafa;
+}
+
+.mini-ratings-fav {
+  display: flex;
+  justify-content: space-around;
+  margin-bottom: 20px;
+}
+
+div.MuiPaper-root > div > div > button {
+  margin-top: 20px;
+}
+
+.favorite-trucks {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  width: 80%;
+  margin: 0 auto;
+}

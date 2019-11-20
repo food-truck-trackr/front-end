@@ -1,35 +1,48 @@
 import React, { useState, useEffect } from "react";
-import AddressAutocomplete from "./maps/AddressAutocomplete";
-import TruckMap from "./maps/TruckMap";
-import FavoriteTrucks from "./FavoriteTrucks";
-import Truck from "./../trucks/Truck";
-import MiniTruck from "./../trucks/MiniTruck";
+import { Link } from "react-router-dom";
+import AddressAutocomplete from "../../maps/AddressAutocomplete";
+import { connect } from "react-redux";
+import TruckMap from "../../maps/TruckMap";
+import { getCurrentLocation } from "./../../store/diner/DinerActions";
 
-const DinerDashBoard = () => {
+const DinerDashBoard = props => {
   const apiUrl = "AIzaSyAxYI7Q1dv5IBOpnPxezE78oZnYcdGDmug";
-  const [center, setCenter] = useState({ lat: 33.8938, lng: 35.5018 }); //this goes to the backend
+  const [center, setCenter] = useState({});
+
+  let currentLocation = () => {
+    navigator.geolocation.getCurrentPosition(function(position) {
+      var pos = {
+        lat: position.coords.latitude,
+        lng: position.coords.longitude
+      };
+      props.getCurrentLocation(pos);
+    });
+  };
 
   useEffect(() => {
-    //dispatch action to update currentLocation
-  }, [center]);
+    currentLocation();
+  }, []);
 
   return (
     <div>
-      <Truck />
-      <MiniTruck />
-      <AddressAutocomplete setCenter={setCenter} />
+      <header className="header">
+        <h1>Food Truck Trackr</h1>
+        <nav>
+          <Link to="/saved">My Favorites</Link>
+        </nav>
+      </header>
+      <AddressAutocomplete currentLocation={currentLocation} />
       <TruckMap
         className="map"
         googleMapURL={`https://maps.googleapis.com/maps/api/js?v=3.exp&libraries=geometry,drawing,places&key=${apiUrl}`}
-        loadingElement={<div style={{ height: "50vh" }} />}
-        containerElement={<div style={{ height: "50vh" }} />}
-        mapElement={<div style={{ height: "50vh" }} />}
+        loadingElement={<div style={{ height: "55vh" }} />}
+        containerElement={<div style={{ height: "55vh" }} />}
+        mapElement={<div style={{ height: "55vh" }} />}
         center={center}
         setCenter={setCenter}
       />
-      <FavoriteTrucks />
     </div>
   );
 };
 
-export default DinerDashBoard;
+export default connect(null, { getCurrentLocation })(DinerDashBoard);
