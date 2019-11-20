@@ -7,7 +7,7 @@ const Navigation = props => {
     <div className="navigation">
       <div className="links">
         <div>
-          <Link to="/">Home</Link>
+          <a href="https://zen-kirch-818a22.netlify.com/">Home</a>
         </div>
         {!props.isAuthenticated && (
           <div>
