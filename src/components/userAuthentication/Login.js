@@ -1,19 +1,15 @@
-import React, {useState, useEffect} from "react";
+// libraries
+import React from "react";
+import { connect } from "react-redux";
+import { login } from "./../../store/authentication/";
 import { withFormik, Form, Field } from "formik";
-import axios from "axios";
+import axiosWithAuth from "./../../utils/AxiosWithAuth";
 import * as yup from "yup";
 import { Router, Link } from "react-router-dom";
 
-const LoginForm = ({values, errors, touched, status}) => {
-  const [user, setUser] = useState([]);
-  // console.log(values, "values")
 
-  useEffect (() => {
-    status && setUser(user => [...user, status]);
-  }, [status])
-
-  return(
-
+const LoginForm = ({ errors, touched, ...props }) => {
+  return (
   <div className="login-form">
     <Form>
       
@@ -38,13 +34,10 @@ const LoginForm = ({values, errors, touched, status}) => {
 };
 
 const FormikLogin = withFormik({
-  mapPropsToValues({
-    username,
-    password})
-    {
-    return{
+  mapPropsToValues({ username, password }) {
+    return {
       username: username || "",
-      password: password || "",
+      password: password || ""
     };
   },
 
@@ -59,28 +52,45 @@ const FormikLogin = withFormik({
       .required("Password is required"),
   }),
 
-  handleSubmit(values, {setStatus}) {
-    axios
-    .post("https://food-truck-trakr.herokuapp.com/api/login", values)
-    .then(response => {
-      console.log(response.data);
-      setStatus(response.data);
-      if (this.status === "401") {
-        return (alert("Please check your username and password and try again."))
-      } 
-      else if (response.data.role === "diner") {
-        return this.history.push("/DinerDashboard")
-      } else if (response.data.role === "operator") {
-        return this.history.push("/OperatorDashboard")
-      }
-      //if username matches registered user
-      //return login user to operator/diner landing page
-      //else if username is not found
-      //return ALERT - you must register to continue
-      //return user to registration page on ALERT clear.
-    })
-    .catch(err => console.log(err.response));
-  }
-})(LoginForm);
+  handleSubmit(values, { props }) {
+    axiosWithAuth()
+      .post("https://food-truck-trakr.herokuapp.com/api/login", values)
+      .then(response => {
+        localStorage.setItem("token", response.data.token);
+        console.log(response.data);
+        // props.login();
+        // props.history.push("/dinerdash");
+      })
+      .catch(err => console.log(err.response));
+    
+//   handleSubmit(values, {setStatus}) {
+//     axios
+//     .post("https://food-truck-trakr.herokuapp.com/api/login", values)
+//     .then(response => {
+//       console.log(response.data);
+//       setStatus(response.data);
+//       // if (status.status === "401") {
+//       //   return (alert("Please check your username and password and try again."), history.push(Login))
+//       // } 
+//       //else if (response.data.role === "diner") {
+//       //   return history.push(DinerDashboard)
+//       // } else if (response.data.role === "operator") {
+//       //   return history.push(OperatorDashboard)
+//       // }
+//       //if username matches registered user
+//       //return login user to operator/diner landing page
+//       //else if username is not found
+//       //return ALERT - you must register to continue
+//       //return user to registration page on ALERT clear.
+//     })
+//     .catch(err => console.log(err.response));
+// 
+}})(LoginForm);
 
-export default FormikLogin;
+const mapStateToProps = state => {
+  return {
+    isAuthenticated: state.auth.isAuthenticated
+  };
+};
+
+export default connect(mapStateToProps, { login })(FormikLogin);

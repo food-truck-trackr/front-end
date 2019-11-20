@@ -1,7 +1,7 @@
 import React from "react";
 import { Switch, Link } from "react-router-dom";
-import PrivateRoute from "./utils/PrivateRoute";
-import DinerDashboard from "./components/diner/DinerDashboard";
+import PrivateRoute from "./PrivateRoute";
+import DinerDashboard from "../components/diner/DinerDashboard";
 
 function App() {
   // const logout = () => {

@@ -3,7 +3,9 @@ import PlacesAutocomplete, {
   geocodeByAddress,
   getLatLng
 } from "react-places-autocomplete";
-import { classnames } from "./../../../utils/helpers";
+import { connect } from "react-redux";
+import { getCurrentLocation } from "./../store/diner/DinerActions";
+import { classnames } from "./../utils/helpers";
 import { makeStyles } from "@material-ui/core/styles";
 import Paper from "@material-ui/core/Paper";
 import Divider from "@material-ui/core/Divider";
@@ -41,15 +43,11 @@ const AddressAutocomplete = props => {
     const results = await geocodeByAddress(value);
     const latLng = await getLatLng(results[0]);
     setLocation(value);
-    props.setCenter(latLng);
+    props.getCurrentLocation(latLng);
   };
 
   const searchOptions = {
     types: ["address"]
-  };
-
-  const closeClick = () => {
-    setLocation("");
   };
 
   return (
@@ -76,7 +74,7 @@ const AddressAutocomplete = props => {
                     color="primary"
                     className={classes.iconButton}
                     aria-label="directions"
-                    // onClick={props.setCenter}
+                    onClick={props.currentLocation}
                   >
                     <DirectionsIcon />
                   </IconButton>
@@ -91,7 +89,6 @@ const AddressAutocomplete = props => {
                   });
 
                   return (
-                    /* eslint-disable react/jsx-key */
                     <div {...getSuggestionItemProps(suggestion, { className })}>
                       <strong>{suggestion.formattedSuggestion.mainText}</strong>{" "}
                       <small>
@@ -99,16 +96,7 @@ const AddressAutocomplete = props => {
                       </small>
                     </div>
                   );
-                  /* eslint-enable react/jsx-key */
                 })}
-                <div className="Demo__dropdown-footer">
-                  <div>
-                    {/* <img
-                    src={require('../images/powered_by_google_default.png')}
-                    className="Demo__dropdown-footer-image"
-                  /> */}
-                  </div>
-                </div>
               </div>
             )}
           </div>
@@ -118,32 +106,4 @@ const AddressAutocomplete = props => {
   );
 };
 
-export default AddressAutocomplete;
-
-/* <div className="search-container">
-            <label htmlFor="search"></label>
-            <div className="search-wrapper">
-              <input
-                className="search"
-                name="search"
-                placeholder="Enter location"
-                {...getInputProps()}
-              />
-            </div>
-            {suggestions.length > 0 && (
-              <div className="suggestions-box">
-                {loading ? <div>...loading</div> : null}
-
-                {suggestions.map(suggestion => {
-                  return (
-                    <div
-                      {...getSuggestionItemProps(suggestion)}
-                      className="suggestions"
-                    >
-                      {suggestion.description}
-                    </div>
-                  );
-                })}
-              </div>
-            )}
-          </div> */
+export default connect(null, { getCurrentLocation })(AddressAutocomplete);
