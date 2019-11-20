@@ -1,6 +1,6 @@
 export const trucks = [
   {
-    truckName: "Rasha's Knafe Truck",
+    truckName: "Rasha's Truck",
     id: 1,
     cuisine: "Kanafe",
     currentLocation: {
@@ -34,7 +34,7 @@ export const trucks = [
   {
     truckName: "Mara's Comfort Food Truck",
     id: 2,
-    cuisine: "Comfort food",
+    cuisine: "Good shit",
     currentLocation: {
       lat: 39.942221,
       lng: -75.286781,
@@ -63,9 +63,9 @@ export const trucks = [
     ]
   },
   {
-    truckName: "Rasha's Knafe Truck",
+    truckName: "Rasha's Shawarma",
     id: 3,
-    cuisine: "Kanafe",
+    cuisine: "Shawarma for dayz",
     currentLocation: {
       lat: 39.957495,
       lng: -75.177545,
