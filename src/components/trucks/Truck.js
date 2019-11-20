@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import placeholderTruck from "./../../assets/placeholder-truck.jpg";
+import { favTrucks } from "./../../dummydata";
 import clsx from "clsx";
 import Card from "@material-ui/core/Card";
 import { makeStyles } from "@material-ui/core/styles";
@@ -12,6 +13,7 @@ import IconButton from "@material-ui/core/IconButton";
 import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
 import CustomerRating from "../diner/CustomerRating";
 import CustomerRatingAvg from "./CustomerRatingAvg";
+import Button from "@material-ui/core/Button";
 import Fav from "./Fav";
 
 const useStyles = makeStyles(theme => ({
@@ -31,7 +33,9 @@ const useStyles = makeStyles(theme => ({
   }
 }));
 
-const Truck = () => {
+const Truck = props => {
+  console.log(props);
+
   const [fav, setFav] = useState(false);
   const classes = useStyles();
   const [expanded, setExpanded] = useState(false);
@@ -47,13 +51,17 @@ const Truck = () => {
     console.log("clicked");
   };
 
+  const truck = favTrucks.find(
+    truck => props.match.params.id === `${truck.id}`
+  );
+
   return (
     <Card className="truck-card">
-      <CardHeader title="Angelina's Tacos" subheader="Cuisine: tacos" />
+      <CardHeader title={truck.truckName} subheader={truck.cuisine} />
       <CardMedia
         className={classes.media}
         image={placeholderTruck}
-        title="Angelina's Tacos truck"
+        title={truck.truckName}
       />
       <div className="card-info">
         <CardContent>
@@ -70,7 +78,9 @@ const Truck = () => {
       </div>
       <div className="card-menu">
         <CardActions disableSpacing>
-          <p>some text</p>
+          <Button className="view-menu-button" onClick={handleExpandClick}>
+            View Menu
+          </Button>
           <IconButton
             className={clsx(classes.expand, {
               [classes.expandOpen]: expanded
@@ -84,11 +94,17 @@ const Truck = () => {
         </CardActions>
         <Collapse in={expanded} timeout="auto" unmountOnExit>
           <CardContent>
-            <h3>Menu</h3>
-            <ul>
-              <li>item 1</li>
-              <li>item 2</li>
-            </ul>
+            {truck.truckMenu.map(food => {
+              return (
+                <ul className="menu-item">
+                  <div className="foodname-description">
+                    <li>{food.item}</li>
+                    <li className="description">{food.description}</li>
+                  </div>
+                  <li>{food.price}</li>
+                </ul>
+              );
+            })}
           </CardContent>
         </Collapse>
       </div>
