@@ -89,7 +89,13 @@ const FormikRegistration = withFormik({
       .string()
       .required("Password is required")
       .min(6, "Password must be at least 6 characters.")
-      .max(10, "Password must not exceed 12 characters."),
+      .max(12, "Password must not exceed 12 characters."),
+      // .matches(
+      //   /^(?=.*[A-Za-z])(?=.*d)[A-Za-zd@$!%*#?&]{6,}$/,
+      //   ///^(?=.*[A-Za-z])(?=.*d)(?=.*[@$!%*#?&])[A-Za-zd@$!%*#?&]{6,12}$/,
+      //   "Must Contain One Uppercase, One Lowercase and One Number or special case Character"
+      // )
+      
     passwordVerify: yup
       .string()
       .required("Must confirm password!")
