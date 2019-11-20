@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Form, Field, withFormik } from 'formik';
+import TruckFormLocation from './TruckFormLocation';
 import * as Yup from 'yup';
 import axios from 'axios';
 
@@ -60,6 +61,8 @@ const AddTruckForm = ({ errors, touched, values, status }) => {
         {/* Image upload */}
 
         {/* Current location */}
+        <h2>What is the current location of your truck?</h2>
+        <TruckFormLocation />
 
         {/* Next location */}
         <h2>What is the next location for your truck?</h2>
@@ -128,7 +131,7 @@ const FormikAddTruckForm = withFormik({
 
   handleSubmit(values, { setStatus }) {
     axios
-      .post('', values)
+      .post('https://food-truck-trakr.herokuapp.com/api/trucks', values)
       .then(res => {
         setStatus(res.data);
       })

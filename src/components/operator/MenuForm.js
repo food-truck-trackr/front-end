@@ -3,6 +3,8 @@ import { Form, Field, withFormik } from 'formik';
 import * as Yup from 'yup';
 import axios from 'axios';
 
+import { FormDiv, H1, CustomInput, CustomBtn } from '../styles/StyledComponents';
+
 const MenuForm = ({ errors, touched, values, status }) => {
   const [items, setItems] = useState([]);
   useEffect(() => {
@@ -10,13 +12,13 @@ const MenuForm = ({ errors, touched, values, status }) => {
   }, [status]);
 
   return (
-    <div className='menuForm'>
-      <h1>Truck Operator: Tell us about the items on your menu!</h1>
+    <FormDiv>
+      <H1>Truck Operator: Tell us about the items on your menu!</H1>
 
       <Form>
 
         {/* Menu item name */}
-        <Field type='text' name='itemName' placeholder='Food Item Name'/>
+        <Field as={CustomInput} type='text' name='itemName' placeholder='Food Item Name'/>
         {touched.itemName && errors.itemName && (
           <p className='error>'>{errors.itemName}</p>
         )}
@@ -33,12 +35,14 @@ const MenuForm = ({ errors, touched, values, status }) => {
         )}
 
         {/* Menu item price */}
-        <Field type='text' name='itemPrice' placeholder='Item Price'/>
+        <Field as={CustomInput} type='text' name='itemPrice' placeholder='Item Price'/>
         {touched.itemPrice && errors.itemPrice && (
           <p className='error'>{errors.itemPrice}</p>
         )}
 
         {/* Menu item image */}
+
+        <CustomBtn type='submit'>Submit your menu info!</CustomBtn>
 
       </Form>
 
@@ -50,7 +54,7 @@ const MenuForm = ({ errors, touched, values, status }) => {
         </ul>
       ))}
 
-    </div>
+    </FormDiv>
   )
 }
 
