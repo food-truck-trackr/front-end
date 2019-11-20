@@ -7,6 +7,7 @@ import PrivateRoute from "./utils/PrivateRoute";
 import DinerDashboard from "./components/diner/DinerDashboard";
 import FavoriteTrucks from "./components/diner/FavoriteTrucks";
 import Truck from "./components/trucks/Truck";
+import TruckFormLocation from "./components/operator/TruckFormLocation";
 
 function App() {
   // const logout = () => {

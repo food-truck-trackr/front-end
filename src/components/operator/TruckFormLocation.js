@@ -3,7 +3,7 @@ import PlacesAutocomplete, {
   geocodeByAddress,
   getLatLng
 } from "react-places-autocomplete";
-import { classnames } from "./../../utils/helpers";
+import { classnames } from "../../utils/helpers";
 
 const TruckFormLocation = props => {
   const [location, setLocation] = useState("");
