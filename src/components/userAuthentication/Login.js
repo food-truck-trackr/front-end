@@ -58,8 +58,8 @@ const FormikLogin = withFormik({
       .then(response => {
         localStorage.setItem("token", response.data.token);
         console.log(response.data);
-        props.login();
-        props.history.push("/dinerdash");
+        // props.login();
+        // props.history.push("/dinerdash");
       })
       .catch(err => console.log(err.response));
     
