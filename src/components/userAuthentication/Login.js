@@ -2,7 +2,7 @@ import React, {useState, useEffect} from "react";
 import { withFormik, Form, Field } from "formik";
 import axios from "axios";
 import * as yup from "yup";
-import { Link } from "react-router-dom";
+import { Router, Link } from "react-router-dom";
 
 const LoginForm = ({values, errors, touched, status}) => {
   const [user, setUser] = useState([]);
@@ -65,14 +65,14 @@ const FormikLogin = withFormik({
     .then(response => {
       console.log(response.data);
       setStatus(response.data);
-      // if (status.status === "401") {
-      //   return (alert("Please check your username and password and try again."), history.push(Login))
-      // } 
-      //else if (response.data.role === "diner") {
-      //   return history.push(DinerDashboard)
-      // } else if (response.data.role === "operator") {
-      //   return history.push(OperatorDashboard)
-      // }
+      if (this.status === "401") {
+        return (alert("Please check your username and password and try again."))
+      } 
+      else if (response.data.role === "diner") {
+        return this.history.push("/DinerDashboard")
+      } else if (response.data.role === "operator") {
+        return this.history.push("/OperatorDashboard")
+      }
       //if username matches registered user
       //return login user to operator/diner landing page
       //else if username is not found

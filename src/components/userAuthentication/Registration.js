@@ -4,8 +4,8 @@ import * as yup from "yup"
 import axios from "axios";
 
 const RegForm = ({values, errors, touched, status}) => {
-  const [setUser] = useState([]);
-  // console.log(values, "values")
+  const [user, setUser] = useState([]);
+  console.log(values, "values")
 
   useEffect (() => {
     status && setUser(user => [...user, status]);
@@ -102,14 +102,18 @@ const FormikRegistration = withFormik({
       // .oneOf([yup.ref("password"), null], "Passwords must match!"),
       .test("passwords-match", "Passwords must match!", function(val) {
         return this.parent.password === val;}),
-      name: yup
+    name: yup
       .string()
       .required("Name is required"),
     role: yup
       .string()
-      .required("Must register as either diner or operator")
-      .test("role-filled", "Must register as either diner or operator", function(val) {
-        return "diner" === val || "operator" === val}),
+      
+      // .when ({role = "false",
+      //   then:yup.string().required("Must register as either diner or operator"),
+      // })
+      // .test("role-filled", "Must register as either diner or operator", function(val) {
+      //   console.log(val, "role value")
+      //   return "diner" === this.val || "operator" === this.val}),
   }),
 
   handleSubmit(values, {setStatus}) {
