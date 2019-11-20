@@ -5,7 +5,7 @@ import axios from "axios";
 
 const RegForm = ({values, errors, touched, status}) => {
   const [user, setUser] = useState([]);
-  console.log(values, "values")
+  // console.log(values, "values")
 
   useEffect (() => {
     status && setUser(user => [...user, status]);
@@ -42,11 +42,12 @@ const RegForm = ({values, errors, touched, status}) => {
         <label className="role">
           I would like to register as a FoodTruck TrackR </label>
         <Field as="select" name="role">
-          <option type="boolean" hidden={true}>...select</option>
-          <option type="boolean" disabled="disabled" default={true}>...select</option>
-          <option type="text" value="diner">Diner</option>
-          <option type="text" value="operator">Operator</option>
+          <option placeholder="select" default={false} hidden={true}>...select</option>
+          <option placeholder="select" disabled="disabled" default={false}>...select</option>
+          <option type="text" value="diner" default={false}>Diner</option>
+          <option type="text" value="operator" default={false}>Operator</option>
         </Field>
+        {touched.role && errors.role && (<p className="errors">{errors.role}</p>)}
         </div>
 
         <button type="submit">Register</button>
@@ -73,7 +74,7 @@ const FormikRegistration = withFormik({
       password: password || "",
       passwordVerify: passwordVerify || "",
       name: name || "",
-      role: role || false
+      role: role || "",
     };
   },
 
@@ -107,16 +108,14 @@ const FormikRegistration = withFormik({
       .required("Name is required"),
     role: yup
       .string()
-      
-      // .when ({role = "false",
-      //   then:yup.string().required("Must register as either diner or operator"),
-      // })
-      // .test("role-filled", "Must register as either diner or operator", function(val) {
-      //   console.log(val, "role value")
-      //   return "diner" === this.val || "operator" === this.val}),
+      .required( "Must register as either diner or operator" )
   }),
 
   handleSubmit(values, {setStatus}) {
+
+    // if (this.role === false) {
+    //   return alert("you failed!")
+    // };
     
     const person = {
       username: values.username,
