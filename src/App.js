@@ -21,8 +21,8 @@ function App() {
       <Route exact path="/Registration" component={Registration} />
       <Route exact path="/Login" component={Login} />
       <Switch>
-        <PrivateRoute path="/dinerdash" component={DinerDashboard} />
-        <PrivateRoute exact path="/saved" component={FavoriteTrucks} />
+        <Route path="/dinerdash" component={DinerDashboard} />
+        <Route exact path="/saved" component={FavoriteTrucks} />
         <Route path="/truck/:id" render={props => <Truck {...props} />} />
       </Switch>
     </div>
