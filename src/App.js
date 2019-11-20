@@ -1,6 +1,5 @@
 import React from "react";
 import { Switch, Link, Route } from "react-router-dom";
-import Navigation from "./components/Navigation";
 import Registration from "./components/userAuthentication/Registration";
 import Login from "./components/userAuthentication/Login";
 import PrivateRoute from "./utils/PrivateRoute";
@@ -9,6 +8,7 @@ import FavoriteTrucks from "./components/diner/FavoriteTrucks";
 import Truck from "./components/trucks/Truck";
 import AddTruckForm from "./components/operator/AddTruckForm";
 import MenuForm from "./components/operator/MenuForm";
+import Header from "./components/Header";
 
 function App() {
   // const logout = () => {
@@ -17,15 +17,18 @@ function App() {
 
   return (
     <div className="App">
-      <Navigation />
+      <Header />
       <Route exact path="/Registration" component={Registration} />
       <Route exact path="/Login" component={Login} />
       <Route path="/AddTruckForm" component={AddTruckForm} />
       <Route path="/MenuForm" component={MenuForm} />
       <Switch>
-        <Route path="/dinerdash" component={DinerDashboard} />
-        <Route exact path="/saved" component={FavoriteTrucks} />
-        <Route path="/truck/:id" render={props => <Truck {...props} />} />
+        <PrivateRoute path="/dinerdash" component={DinerDashboard} />
+        <PrivateRoute exact path="/saved" component={FavoriteTrucks} />
+        <PrivateRoute
+          path="/truck/:id"
+          render={props => <Truck {...props} />}
+        />
       </Switch>
     </div>
   );

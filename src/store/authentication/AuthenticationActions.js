@@ -13,8 +13,8 @@ export const register = (values, history) => dispatch => {
 };
 
 // store token and get user data for subsequent actions
-export const login = () => {
-  return { type: SUCCESS };
+export const login = role => {
+  return { type: SUCCESS, payload: role };
 };
 
 //when api/users/:id works:

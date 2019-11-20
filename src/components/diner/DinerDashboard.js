@@ -25,12 +25,6 @@ const DinerDashBoard = props => {
 
   return (
     <div>
-      <header className="header">
-        <h1>Food Truck Trackr</h1>
-        <nav>
-          <Link to="/saved">My Favorites</Link>
-        </nav>
-      </header>
       <AddressAutocomplete currentLocation={currentLocation} />
       <TruckMap
         className="map"

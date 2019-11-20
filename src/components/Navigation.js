@@ -1,28 +1,40 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import { connect } from "react-redux";
 
-const Navigation = () => {
+const Navigation = props => {
   return (
     <div className="navigation">
       <div className="links">
-      <div>
-        <Link to="/">Home</Link>
-      </div>
-      <div>
-        <Link to="/Registration">Register</Link>
-      </div>
-      <div>
-        <Link to="/Login">Login</Link>
-      </div>
-      <div>
-        <Link to="/AddTruckForm">Temp Link to Operator Add Truck Form</Link>
-      </div>
-      <div>
-        <Link to="/MenuForm">Temp Link to Operator Menu Form</Link>
-      </div>
+        <div>
+          <Link to="/">Home</Link>
+        </div>
+        {!props.isAuthenticated && (
+          <div>
+            <div>
+              <Link to="/Login">Login</Link>
+            </div>
+            <div>
+              <Link to="/Registration">Register</Link>
+            </div>
+          </div>
+        )}
+        <div>
+          <Link to="/AddTruckForm">Temp Link to Operator Add Truck Form</Link>
+        </div>
+        <div>
+          <Link to="/MenuForm">Temp Link to Operator Menu Form</Link>
+        </div>
       </div>
     </div>
   );
 };
 
-export default Navigation;
+const mapStateToProps = state => {
+  return {
+    role: state.auth.role,
+    isAuthenticated: state.auth.isAuthenticated
+  };
+};
+
+export default connect(mapStateToProps, {})(Navigation);
