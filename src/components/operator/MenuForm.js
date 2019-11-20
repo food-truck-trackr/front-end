@@ -11,7 +11,7 @@ const MenuForm = ({ errors, touched, values, status }) => {
 
   return (
     <div className='menuForm'>
-      <h1>Operator: Tell us about the items on your menu!</h1>
+      <h1>Truck Operator: Tell us about the items on your menu!</h1>
 
       <Form>
 
