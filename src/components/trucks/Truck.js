@@ -1,4 +1,5 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+import axios from "axios";
 import placeholderTruck from "./../../assets/placeholder-truck.jpg";
 import { trucks } from "./../../dummydata";
 import clsx from "clsx";
@@ -33,12 +34,25 @@ const useStyles = makeStyles(theme => ({
   }
 }));
 
-const Truck = props => {
-  console.log(props);
+const apiUrl = "AIzaSyAxYI7Q1dv5IBOpnPxezE78oZnYcdGDmug";
 
+const Truck = props => {
   const [fav, setFav] = useState(false);
   const classes = useStyles();
   const [expanded, setExpanded] = useState(false);
+
+  const [address, setAddress] = useState("");
+  const apiUrl = "AIzaSyAxYI7Q1dv5IBOpnPxezE78oZnYcdGDmug";
+  const reverseGeocode = (lat, lng) => {
+    axios
+      .get(
+        `https://maps.googleapis.com/maps/api/geocode/json?latlng=${lat},${lng}&key=${apiUrl}`
+      )
+      .then(res => {
+        setAddress(res.data.results[0].formatted_address);
+      })
+      .catch(err => console.log(err));
+  };
 
   const handleExpandClick = () => {
     setExpanded(!expanded);
@@ -51,9 +65,14 @@ const Truck = props => {
     console.log("clicked");
   };
 
-  const truck = trucks.find(
-    truck => props.match.params.id === `${truck.id}`
-  );
+  const truck = trucks.find(truck => props.match.params.id === `${truck.id}`);
+
+  useEffect(() => {
+    console.log(
+      reverseGeocode(truck.currentLocation.lat, truck.currentLocation.lng)
+    );
+    // setAddress(add);
+  }, []);
 
   return (
     <Card className="truck-card">
@@ -69,7 +88,7 @@ const Truck = props => {
           {/*conditional: if there is no departure time, just return current location, otherwise return
           
           */}
-          <p>address</p>
+          <p>{address}</p>
 
           <Fav />
           <CustomerRating />

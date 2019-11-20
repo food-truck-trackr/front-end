@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Switch, Link, Route } from "react-router-dom";
 import Registration from "./components/userAuthentication/Registration";
 import Login from "./components/userAuthentication/Login";
