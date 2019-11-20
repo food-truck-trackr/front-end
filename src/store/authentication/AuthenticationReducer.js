@@ -14,8 +14,8 @@ export const authenticationReducer = (
     case SUCCESS:
       return {
         ...state,
-        isAuthenticated: true
-        // role: action.payload
+        isAuthenticated: true,
+        role: action.payload
       };
 
     case LOGOUT:
