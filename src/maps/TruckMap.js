@@ -4,18 +4,6 @@ import { connect } from "react-redux";
 import { getCurrentLocation } from "./../store/diner/DinerActions";
 
 const Map = props => {
-  //move this to actions
-  // useEffect(() => {
-  //   props.getCurrentLocation();
-  //   navigator.geolocation.getCurrentPosition(function(position) {
-  //     var pos = {
-  //       lat: position.coords.latitude,
-  //       lng: position.coords.longitude
-  //     };
-  //     props.getCurrentLocation(pos);
-  //   });
-  // }, []);
-
   return (
     <GoogleMap
       defaultZoom={14}

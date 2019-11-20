@@ -14,7 +14,6 @@ export const authenticationReducer = (
 ) => {
   switch (action.type) {
     case SUCCESS:
-      console.log("action", action);
       return {
         ...state,
         isAuthenticated: true,

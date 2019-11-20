@@ -29,10 +29,7 @@ const DinerDashBoard = props => {
     <div>
       <Truck />
       <MiniTruck />
-      <AddressAutocomplete
-        setCenter={setCenter}
-        currentLocation={currentLocation}
-      />
+      <AddressAutocomplete currentLocation={currentLocation} />
       <TruckMap
         className="map"
         googleMapURL={`https://maps.googleapis.com/maps/api/js?v=3.exp&libraries=geometry,drawing,places&key=${apiUrl}`}

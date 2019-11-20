@@ -57,9 +57,10 @@ const FormikLogin = withFormik({
     axiosWithAuth()
       .post("https://food-truck-trakr.herokuapp.com/api/login", values)
       .then(response => {
-        console.log("role", response.data.user.role);
-        props.login(response.data);
-        console.log("props.isAuthenticated", props.isAuthenticated);
+        localStorage.setItem("token", response.data.token);
+        console.log(response.data);
+        props.login();
+        props.history.push("/dinerdash");
       })
       .catch(err => console.log(err.response));
   }
