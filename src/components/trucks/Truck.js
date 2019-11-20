@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import placeholderTruck from "./../../assets/placeholder-truck.jpg";
-import { favTrucks } from "./../../dummydata";
+import { trucks } from "./../../dummydata";
 import clsx from "clsx";
 import Card from "@material-ui/core/Card";
 import { makeStyles } from "@material-ui/core/styles";
@@ -51,7 +51,7 @@ const Truck = props => {
     console.log("clicked");
   };
 
-  const truck = favTrucks.find(
+  const truck = trucks.find(
     truck => props.match.params.id === `${truck.id}`
   );
 

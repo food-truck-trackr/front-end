@@ -25,10 +25,7 @@ function App() {
       <Switch>
         <PrivateRoute path="/dinerdash" component={DinerDashboard} />
         <PrivateRoute exact path="/saved" component={FavoriteTrucks} />
-        <PrivateRoute
-          path="/truck/:id"
-          render={props => <Truck {...props} />}
-        />
+        <Route path="/truck/:id" render={props => <Truck {...props} />} />
       </Switch>
     </div>
   );

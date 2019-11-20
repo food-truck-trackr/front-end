@@ -57,11 +57,13 @@ const FormikLogin = withFormik({
       .post("https://food-truck-trakr.herokuapp.com/api/login", values)
       .then(response => {
         localStorage.setItem("token", response.data.token);
-        console.log(response.data);
+        console.log(response.data.role);
         props.login(response.data.role);
-        if (props.role === "diner") {
+        if (response.data.role === "diner") {
           props.history.push("/dinerdash");
-        } else props.history.push("/operatordash");
+        } else if (response.data.role === "operator") {
+          props.history.push("/operatordash");
+        }
       })
       .catch(err => console.log(err.response));
 
@@ -92,8 +94,7 @@ const FormikLogin = withFormik({
 
 const mapStateToProps = state => {
   return {
-    isAuthenticated: state.auth.isAuthenticated,
-    role: state.auth.role
+    isAuthenticated: state.auth.isAuthenticated
   };
 };
 
