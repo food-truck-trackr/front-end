@@ -59,7 +59,9 @@ const FormikLogin = withFormik({
         localStorage.setItem("token", response.data.token);
         console.log(response.data);
         props.login(response.data.role);
-        props.history.push("/dinerdash");
+        if (props.role === "diner") {
+          props.history.push("/dinerdash");
+        } else props.history.push("/operatordash");
       })
       .catch(err => console.log(err.response));
 
@@ -90,7 +92,8 @@ const FormikLogin = withFormik({
 
 const mapStateToProps = state => {
   return {
-    isAuthenticated: state.auth.isAuthenticated
+    isAuthenticated: state.auth.isAuthenticated,
+    role: state.auth.role
   };
 };
 
