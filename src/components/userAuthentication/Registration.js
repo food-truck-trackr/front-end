@@ -4,7 +4,7 @@ import * as yup from "yup"
 import axios from "axios";
 
 const RegForm = ({values, errors, touched, status}) => {
-  const [user, setUser] = useState([]);
+  const [setUser] = useState([]);
   // console.log(values, "values")
 
   useEffect (() => {
@@ -19,15 +19,16 @@ const RegForm = ({values, errors, touched, status}) => {
         {touched.email && errors.email && (<p className="errors">{errors.email}</p>)}
         
         <Field type="text" name="username" placeholder="username" />
-        {touched.username && errors.username && (<p className="errors">{errors.username}</p>)}
+        {touched.username && errors.username && (<p className="errors">user name is a required field</p>)}
         
         <Field type="password" name="password" placeholder="password" />
-        <p>*Password must be between 6 and 12 characters in length.</p>
+        <p>*Password must be at least 6 characters in length.</p>
         {touched.password && errors.password && (<p className="errors">{errors.password}</p>)}
-{/*         
+        
         <Field type="password" name="passwordVerify" placeholder="confirm password" />
-        {touched.passwordVerify && errors.passwordVerify && (<p className="errors">"You must confirm you password!"</p>)}        
-         */}
+        {touched.passwordVerify && errors.passwordVerify} 
+        {/* && (<p className="errors">"You must confirm your password!"</p>)} */}
+
         <Field type="text" name="name" placeholder="name" />
         {touched.name && errors.name && (<p className="errors">{errors.name}</p>)}        
         
@@ -36,25 +37,21 @@ const RegForm = ({values, errors, touched, status}) => {
             Yes! I would like to receive future promotions and FoodTruck TrackR location updates via text message!</label>
         <Field type="checkbox" name="consent" checked={values.consent}/> */}
         </div>
+        
         <div>
         <label className="role">
-            I would like to register as a FoodTruck TrackR </label>
+          I would like to register as a FoodTruck TrackR </label>
         <Field as="select" name="role">
-        <option>...select</option>
-        <option value="diner">Diner</option>
-        <option value="operator">Operator</option>
-        {touched.role && errors.role && (<p className="errors">{errors.role}</p>)}   
+          <option type="boolean" hidden={true}>...select</option>
+          <option type="boolean" disabled="disabled" default={true}>...select</option>
+          <option type="text" value="diner">Diner</option>
+          <option type="text" value="operator">Operator</option>
         </Field>
         </div>
 
         <button type="submit">Register</button>
       
       </Form>
-
-      {/* {user.map(person => (
-        key={person.id};
-        name={person.userName};
-      ))} */}
     </div>
 
   )//closes RegForm return
@@ -66,20 +63,16 @@ const FormikRegistration = withFormik({
     username, 
     email, 
     password, 
-    // passwordVerify, 
+    passwordVerify, 
     name,
-    // phone, 
-    // consent, 
     role}) 
     {
     return{
       username: username || "",
       email: email || "",
       password: password || "",
-      // passwordVerify: passwordVerify || "",
+      passwordVerify: passwordVerify || "",
       name: name || "",
-      //phone: phone || "",
-      // consent: consent || false,
       role: role || false
     };
   },
@@ -87,39 +80,53 @@ const FormikRegistration = withFormik({
   validationSchema: yup.object().shape({
     email: yup
       .string()
-      .label("email")
       .email()
       .required(),
     username: yup
       .string()
-      .label("userName")
       .required(),
     password: yup
       .string()
-      .label("password")
       .required("Password is required")
-      .min(6, "Password must be at least 6 characters long.")
-      .max(10, "Password must not exceed 12 characters."),
-    // passwordVerify: yup
-      // .string()
-      // .label("passwordVerify")
-      // .oneOf([yup.ref("password"), null], "Passwords must match!"),
-    name: yup
+      .min(6, "Password must be at least 6 characters.")
+      .max(12, "Password must not exceed 12 characters."),
+      // .matches(
+      //   /^(?=.*[A-Za-z])(?=.*d)[A-Za-zd@$!%*#?&]{6,}$/,
+      //   ///^(?=.*[A-Za-z])(?=.*d)(?=.*[@$!%*#?&])[A-Za-zd@$!%*#?&]{6,12}$/,
+      //   "Must Contain One Uppercase, One Lowercase and One Number or special case Character"
+      // )
+      
+    passwordVerify: yup
       .string()
-      .label("name")
+      .required("Must confirm password!")
+      // .oneOf([yup.ref("password"), null], "Passwords must match!"),
+      .test("passwords-match", "Passwords must match!", function(val) {
+        return this.parent.password === val;}),
+      name: yup
+      .string()
       .required("Name is required"),
-    // consent: yup
-    //   .boolean(),
-      //needs .required if phone number has been entered
     role: yup
       .string()
-      .required(),
+      .required("Must register as either diner or operator")
+      .test("role-filled", "Must register as either diner or operator", function(val) {
+        return "diner" === val || "operator" === val}),
   }),
 
   handleSubmit(values, {setStatus}) {
+    
+    const person = {
+      username: values.username,
+      password: values.password,
+      role: values.role,
+      name: values.name, 
+      email: values.email}
+
+      console.log(person)
+      
     axios
-    .post("https://food-truck-trakr.herokuapp.com/api/register", values)
+    .post("https://food-truck-trakr.herokuapp.com/api/register", person)
     .then(response => {
+      // console.log(person);
       console.log(response.data, "user values");
       setStatus(response.data);
       //if operator.value =true && email/username is unique
