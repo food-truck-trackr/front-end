@@ -1,6 +1,6 @@
 import React, {useState, useEffect} from "react";
 import { withFormik, Form, Field } from "formik";
-import Axios from "axios";
+import axios from "axios";
 import * as yup from "yup";
 
 const LoginForm = ({values, errors, touched, status}) => {
@@ -16,8 +16,8 @@ const LoginForm = ({values, errors, touched, status}) => {
   <div className="login-form">
     <Form>
       
-      <Field type="text" name="user name" placeholder="username" />
-      {touched.userName && errors.userName && 
+      <Field type="text" name="username" placeholder="username" />
+      {touched.username && errors.username && 
       (<p className="errors">"Please enter a valid user name."</p>)}
 
       <Field type="password" name="password" placeholder="password" />
@@ -37,19 +37,19 @@ const LoginForm = ({values, errors, touched, status}) => {
 
 const FormikLogin = withFormik({
   mapPropsToValues({
-    userName,
+    username,
     password})
     {
     return{
-      userName: userName || "",
+      username: username || "",
       password: password || "",
     };
   },
 
   validationSchema: yup.object().shape({
-    userName: yup
+    username: yup
       .string()
-      .label('userName')
+      .label('username')
       .required(),
     password: yup
       .string()
@@ -60,8 +60,8 @@ const FormikLogin = withFormik({
   }),
 
   handleSubmit(values, {setStatus}) {
-    Axios
-    .post()
+    axios
+    .post("https://food-truck-trakr.herokuapp.com/api/login", values)
     .then(response => {
       console.log(response.data);
       setStatus(response.data);

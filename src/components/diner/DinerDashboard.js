@@ -2,6 +2,8 @@ import React, { useState, useEffect } from "react";
 import AddressAutocomplete from "./maps/AddressAutocomplete";
 import TruckMap from "./maps/TruckMap";
 import FavoriteTrucks from "./FavoriteTrucks";
+import Truck from "./../trucks/Truck";
+import MiniTruck from "./../trucks/MiniTruck";
 
 const DinerDashBoard = () => {
   const apiUrl = "AIzaSyAxYI7Q1dv5IBOpnPxezE78oZnYcdGDmug";
@@ -13,6 +15,8 @@ const DinerDashBoard = () => {
 
   return (
     <div>
+      <Truck />
+      <MiniTruck />
       <AddressAutocomplete setCenter={setCenter} />
       <TruckMap
         className="map"
