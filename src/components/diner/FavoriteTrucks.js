@@ -1,12 +1,12 @@
 import React from "react";
-import { favTrucks } from "./../../dummydata";
-import Truck from "./../trucks/MiniTruck";
+import { trucks } from "./../../dummydata";
+import MiniTruck from "./../trucks/MiniTruck";
 
 const FavoriteTrucks = () => {
   return (
     <div className="favorite-trucks">
-      {favTrucks.map(truck => {
-        return <Truck key={truck.id} truck={truck} />;
+      {trucks.map(truck => {
+        return <MiniTruck key={truck.id} truck={truck} />;
       })}
     </div>
   );
