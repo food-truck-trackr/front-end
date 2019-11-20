@@ -4,7 +4,7 @@ import TruckFormLocation from './TruckFormLocation';
 import * as Yup from 'yup';
 import axios from 'axios';
 
-import { FormDiv, H1, CustomInput, CustomBtn } from '../styles/StyledComponents';
+import { FormDiv, H1, CustomInput, CustomBtn, StyledLink } from '../styles/StyledComponents';
 
 // material-ui imports
 import { makeStyles } from '@material-ui/core/styles';
@@ -103,13 +103,13 @@ const AddTruckForm = ({ errors, touched, values, status }) => {
           </form>
         </div>
 
-        <CustomBtn type='submit' onClick={handleSubmit()}>Submit your truck info!</CustomBtn>
+        <CustomBtn type='submit'>Submit your truck info!</CustomBtn>
 
       </Form>
 
       {/* Button Linked to Menu Form */}
       <div className='menuButton'>
-        <CustomBtn>Add menu info for your truck!</CustomBtn>
+        <StyledLink href='/MenuForm'><CustomBtn>Add menu info for your truck!</CustomBtn></StyledLink>
       </div>
 
     </FormDiv>

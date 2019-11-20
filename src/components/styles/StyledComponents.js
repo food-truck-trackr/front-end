@@ -37,3 +37,7 @@ export const CustomBtn = styled.button`
   font-size: 1rem;
   background: #f2efc7;
 `
+export const StyledLink = styled.a`
+  text-decoration: none;
+  color: black
+`
