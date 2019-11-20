@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React from "react";
 import { GoogleMap, withGoogleMap } from "react-google-maps";
 import { connect } from "react-redux";
 import { getCurrentLocation } from "./../store/diner/DinerActions";
@@ -6,7 +6,7 @@ import { getCurrentLocation } from "./../store/diner/DinerActions";
 const Map = props => {
   return (
     <GoogleMap
-      defaultZoom={14}
+      defaultZoom={15}
       center={props.currentLocation}
       defaultOptions={{
         disableDefaultUI: true
