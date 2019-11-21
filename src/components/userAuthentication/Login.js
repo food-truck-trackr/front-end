@@ -5,7 +5,7 @@ import { login } from "./../../store/authentication/";
 import { withFormik, Form, Field } from "formik";
 import axiosWithAuth from "./../../utils/AxiosWithAuth";
 import * as yup from "yup";
-import { Link } from "react-router-dom";
+import { Router, Link } from "react-router-dom";
 
 const LoginForm = ({ errors, touched, ...props }) => {
   return (
