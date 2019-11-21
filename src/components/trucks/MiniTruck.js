@@ -108,7 +108,7 @@ const MiniTruck = props => {
                 View Truck
               </Button>
             </Link>
-            <Fav />
+            {props.role === "diner" && <Fav />}
           </div>
         </CardContent>
       </div>
@@ -118,7 +118,7 @@ const MiniTruck = props => {
 
 const mapStateToProps = state => {
   return {
-    isDiner: state.auth.isDiner
+    role: state.auth.role
   };
 };
 

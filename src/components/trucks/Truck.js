@@ -98,6 +98,12 @@ const Truck = props => {
               <Fav truck={truck} />
             </div>
           )}
+          {props.role === "operator" && (
+            <div className="edit-delete-buttons">
+              <Button className="edit-btn">Edit Truck</Button>
+              <Button className="delete-btn">Delete Truck</Button>
+            </div>
+          )}
         </CardContent>
       </div>
       <div className="card-menu">
