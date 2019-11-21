@@ -5,3 +5,7 @@ import axiosWithAuth from "./../../utils/AxiosWithAuth";
 export const getCurrentLocation = position => {
   return { type: GET_CURRENT_LOCATION, payload: position };
 };
+
+export const addFavorite = () => {
+  return { type: ADD_FAVORITE };
+};

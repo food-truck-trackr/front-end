@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { trucks } from "../../dummydata";
 
 const Fav = () => {
   const [fav, setFav] = useState(false);
@@ -12,7 +13,6 @@ const Fav = () => {
 
   return (
     <div>
-      {/* map over truck array from store. If truck ID matches this trucks ID, then display full heart. otherwise display empty heart */}
       {fav ? (
         <i className="fas fa-heart" onClick={makeFavorite}></i>
       ) : (

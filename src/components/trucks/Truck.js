@@ -3,19 +3,25 @@ import axios from "axios";
 import placeholderTruck from "./../../assets/placeholder-truck.jpg";
 import { trucks } from "./../../dummydata";
 import clsx from "clsx";
-import Card from "@material-ui/core/Card";
-import { makeStyles } from "@material-ui/core/styles";
-import CardHeader from "@material-ui/core/CardHeader";
-import CardMedia from "@material-ui/core/CardMedia";
-import CardContent from "@material-ui/core/CardContent";
-import Collapse from "@material-ui/core/Collapse";
-import CardActions from "@material-ui/core/CardActions";
-import IconButton from "@material-ui/core/IconButton";
+// import { makeStyles } from "@material-ui/core/styles";
+import {
+  makeStyles,
+  Card,
+  Button,
+  CardHeader,
+  CardMedia,
+  CardContent,
+  Collapse,
+  CardActions,
+  IconButton
+} from "@material-ui/core";
 import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
 import CustomerRating from "../diner/CustomerRating";
 import CustomerRatingAvg from "./CustomerRatingAvg";
-import Button from "@material-ui/core/Button";
 import Fav from "./Fav";
+import { dispatch } from "rxjs/internal/observable/pairs";
+import { connect } from "react-redux";
+import { addFavorite } from "../../store/diner/DinerActions";
 
 const useStyles = makeStyles(theme => ({
   media: {
@@ -58,20 +64,17 @@ const Truck = props => {
     setExpanded(!expanded);
   };
 
-  const makeFavorite = () => {
-    // where to get truck object from?
-    // dispatch({ type: ADD_FAVORITE, payload: truck });
-    setFav(!fav);
-    console.log("clicked");
-  };
-
   const truck = trucks.find(truck => props.match.params.id === `${truck.id}`);
+
+  // const makeFavorite = truck => {
+  //   setFav(!fav);
+  //   dispatch({ type: ADD_FAVORITE });
+  // };
 
   useEffect(() => {
     console.log(
       reverseGeocode(truck.currentLocation.lat, truck.currentLocation.lng)
     );
-    // setAddress(add);
   }, []);
 
   return (
@@ -84,15 +87,17 @@ const Truck = props => {
       />
       <div className="card-info">
         <CardContent>
-          <p>Average customer rating</p>
-          {/*conditional: if there is no departure time, just return current location, otherwise return
-          
-          */}
           <p>{address}</p>
+          <p>Average customer rating</p>
 
-          <Fav />
-          <CustomerRating />
           <CustomerRatingAvg />
+
+          {props.role === "diner" && (
+            <>
+              <CustomerRating />
+              <Fav truck={truck} />
+            </>
+          )}
         </CardContent>
       </div>
       <div className="card-menu">
@@ -131,4 +136,10 @@ const Truck = props => {
   );
 };
 
-export default Truck;
+const mapStateToProps = state => {
+  return {
+    role: state.auth.role
+  };
+};
+
+export default connect(mapStateToProps, { addFavorite })(Truck);
