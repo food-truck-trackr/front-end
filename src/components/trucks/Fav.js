@@ -1,10 +1,9 @@
 import React, { useState } from "react";
 
-const Fav = () => {
+const Fav = ({ className }) => {
   const [fav, setFav] = useState(false);
 
   const makeFavorite = () => {
-    // where to get truck object from?
     // dispatch({ type: ADD_FAVORITE, payload: truck });
     setFav(!fav);
     console.log("clicked");
@@ -12,7 +11,6 @@ const Fav = () => {
 
   return (
     <div>
-      {/* map over truck array from store. If truck ID matches this trucks ID, then display full heart. otherwise display empty heart */}
       {fav ? (
         <i className="fas fa-heart" onClick={makeFavorite}></i>
       ) : (

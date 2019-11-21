@@ -10,7 +10,6 @@ const CustomerRating = () => {
 
   return (
     <div>
-      <h3>Add your rating</h3>
       <Ratings
         rating={rating}
         widgetRatedColors="rgb(229,186,51)"

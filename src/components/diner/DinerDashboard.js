@@ -1,11 +1,11 @@
 import React, { useState, useEffect } from "react";
-import { Link } from "react-router-dom";
 import AddressAutocomplete from "../../maps/AddressAutocomplete";
 import { connect } from "react-redux";
 import TruckMap from "../../maps/TruckMap";
 import { getCurrentLocation } from "./../../store/diner/DinerActions";
 
 const DinerDashBoard = props => {
+  //make get request for all trucks. pass down array as props to truckMap and to truckList
   const apiUrl = "AIzaSyAxYI7Q1dv5IBOpnPxezE78oZnYcdGDmug";
   const [center, setCenter] = useState({});
 
@@ -35,6 +35,7 @@ const DinerDashBoard = props => {
         center={center}
         setCenter={setCenter}
       />
+      {/* if array of trucks.length > 0, then display view as list*/}
     </div>
   );
 };

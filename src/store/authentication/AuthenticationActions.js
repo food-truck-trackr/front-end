@@ -17,13 +17,6 @@ export const login = role => {
   return { type: SUCCESS, payload: role };
 };
 
-//when api/users/:id works:
-// export const login = (id) => dispatch => {
-//   axiosWithAuth()
-//   .get(`https://food-truck-trakr.herokuapp.com/api/users/${id}`)
-//   .then({type: ACTION})
-// }
-
 export const logout = () => dispatch => {
   localStorage.clear();
   dispatch({ type: LOGOUT });

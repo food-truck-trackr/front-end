@@ -1,5 +1,5 @@
 import React from "react";
-import { Switch, Link, Route } from "react-router-dom";
+import { Switch, Route } from "react-router-dom";
 import Registration from "./components/userAuthentication/Registration";
 import Login from "./components/userAuthentication/Login";
 import PrivateRoute from "./utils/PrivateRoute";
@@ -12,10 +12,6 @@ import Header from "./components/Header";
 import OperatorDashboard from "./components/operator/OperatorDashboard";
 
 function App() {
-  // const logout = () => {
-  //   dispatch({ type: LOGOUT });
-  // };
-
   return (
     <div className="App">
       <Header />
@@ -26,8 +22,9 @@ function App() {
       <Route path="/OperatorDashboard" component={OperatorDashboard} />
       <Switch>
         <PrivateRoute path="/dinerdash" component={DinerDashboard} />
+        <PrivateRoute path="/operatordash" component={OperatorDashboard} />
         <PrivateRoute exact path="/saved" component={FavoriteTrucks} />
-        <Route path="/truck/:id" render={props => <Truck {...props} />} />
+        <PrivateRoute path="/truck/:id" component={Truck} />
       </Switch>
     </div>
   );

@@ -1,29 +1,25 @@
 import React from "react";
-import { Route, Link } from "react-router-dom";
-import Truck from "../trucks/Truck";
+import { Link } from "react-router-dom";
 import MiniTruck from "../trucks/MiniTruck";
-import { trucks } from "../../dummydata";
+import { connect } from "react-redux";
 
-const OperatorDashboard = () => {
-  return(
-  <div>
+const OperatorDashboard = props => {
+  return (
     <div>
-    {/* Build Truck "Cards" from truck.js with uploaded truck image 
-    git request to pul operator.id and bring trucks as array 
-    and then map to display minitruck.js*/}
-    {trucks.map(truck => {
-      return <MiniTruck truck={truck}/>
-    })}
-  
+      <div>
+        {props.trucks.map(truck => {
+          return <MiniTruck key={truck.id} truck={truck} />;
+        })}
+      </div>
+      <Link to="/AddTruckForm">Add Truck</Link>
     </div>
-    <Link to="/AddTruckForm">Add Truck</Link>
-    {/* Link to addtruckform.js <Link>
-    <button type="submit">Add Truck</button>
-    </Link> */}
-
-  </div>
-  )
+  );
 };
 
+const mapStateToProps = state => {
+  return {
+    trucks: state.operator.trucksOwned
+  };
+};
 
-export default OperatorDashboard
+export default connect(mapStateToProps, {})(OperatorDashboard);
