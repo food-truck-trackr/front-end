@@ -21,7 +21,7 @@ const TruckFormLocation = props => {
   };
 
   return (
-    <div className="search">
+    <div>
       <PlacesAutocomplete
         value={location}
         onChange={setLocation}
