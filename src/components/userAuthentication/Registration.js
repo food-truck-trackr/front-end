@@ -19,7 +19,7 @@ const RegForm = ({values, errors, touched, status}) => {
         {touched.email && errors.email && (<p className="errors">{errors.email}</p>)}
         
         <Field className="field userName" type="text" name="username" placeholder="username" />
-        {touched.username && errors.username && (<p className="errors">user name is a required field</p>)}
+        {touched.username && errors.username && (<p className="errors">{errors.username}</p>)}
         
         <Field className="field password" type="password" name="password" placeholder="password" />
         <p className="text">*Password must be at least 6 characters.</p>
@@ -81,10 +81,10 @@ const FormikRegistration = withFormik({
     email: yup
       .string()
       .email()
-      .required(),
+      .required("Email is required"),
     username: yup
       .string()
-      .required(),
+      .required("Username is required"),
     password: yup
       .string()
       .required("Password is required")

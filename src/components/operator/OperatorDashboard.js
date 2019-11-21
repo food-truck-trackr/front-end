@@ -6,12 +6,12 @@ import { connect } from "react-redux";
 const OperatorDashboard = props => {
   return (
     <div>
+      {props.trucks.map(truck => {
+        return <MiniTruck key={truck.id} truck={truck} />;
+      })}
       <div>
-        {props.trucks.map(truck => {
-          return <MiniTruck key={truck.id} truck={truck} />;
-        })}
+        <Link to="/AddTruckForm">Add Truck</Link>
       </div>
-      <Link to="/AddTruckForm">Add Truck</Link>
     </div>
   );
 };
