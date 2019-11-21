@@ -3,7 +3,7 @@ import React, { useState } from 'react';
 // import * as Yup from 'yup';
 // import axios from 'axios';
 
-import { FormDiv, H1, CustomInput, CustomBtn } from '../styles/StyledComponents';
+import { FormDiv, H1, CustomInput, CustomBtn, CustomLabel, TextArea, MenuList } from '../styles/StyledComponents';
 
 const MenuForm = props => {
   const [items, setItems] = useState({ itemName: '', itemDescription: '', itemPrice: ''});
@@ -32,8 +32,10 @@ const MenuForm = props => {
         />
 
         {/* Menu item description */}
-        <label for='itemDescripton'>Item Description:</label>
-        <textarea
+
+        <CustomLabel for='itemDescripton'>Item Description:</CustomLabel>
+        <TextArea
+
           placeholder='Tell us about your menu item!'
           id='itemDescription'
           name='itemDescription'
@@ -43,6 +45,7 @@ const MenuForm = props => {
         
 
         {/* Menu item price */}
+        <CustomLabel for='itemPrice'>Item Price:</CustomLabel>
         <CustomInput
           placeholder='Menu Item Price'
           id='itemPrice'
@@ -56,11 +59,11 @@ const MenuForm = props => {
 
       </form>
 
-      <ul className='menuItemCard'>
+      <MenuList>
         <li>Item Name: {items.itemName}</li>
         <li>Description: {items.itemDescription}</li>
         <li>Price: {items.itemPrice}</li>
-      </ul>
+      </MenuList>
 
     </FormDiv>
   )

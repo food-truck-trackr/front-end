@@ -27,7 +27,9 @@ export const AddTruckCard = styled.div`
 
 export const H1 = styled.h1`
   font-size: 1.5rem;
+  margin-bottom: 1rem;
 `;
+
 export const CustomInput = styled.input`
   display: block;
   border: 1px solid black;
@@ -37,12 +39,11 @@ export const CustomInput = styled.input`
 `;
 export const CustomSelect = styled.select`
   height: 3rem;
-  background: orange;
   font-size: 3rem;
 `;
 
 export const CustomBtn = styled.button`
-  margin-top: 1rem;
+  margin: 1rem 0;
   padding: 1rem;
   font-size: 1rem;
   background: #f2efc7;
@@ -53,3 +54,20 @@ export const StyledLink = styled.a`
   text-decoration: none;
   color: black;
 `;
+
+export const CustomLabel = styled.label`
+  display: block;
+  margin-bottom: 1rem;
+`
+
+export const TextArea = styled.textarea`
+  height: 4rem;
+  width: 8rem;
+  font-size: .75rem;
+  margin-bottom: 1rem;
+`
+
+export const MenuList = styled.ul`
+  background: #f2efc7;
+  padding: 2rem;
+`
