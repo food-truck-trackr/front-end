@@ -36,4 +36,10 @@ export const CustomBtn = styled.button`
   padding: 1rem;
   font-size: 1rem;
   background: #f2efc7;
+  border-radius: 5px;
+`
+
+export const StyledLink = styled.a`
+  text-decoration: none;
+  color: black
 `

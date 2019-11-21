@@ -1,21 +1,30 @@
 import React, { useState, useEffect } from 'react';
-import { Form, Field, withFormik } from 'formik';
-import * as Yup from 'yup';
-import axios from 'axios';
+import TruckFormLocation from './TruckFormLocation';
+import axiosWithAuth from '../../utils/AxiosWithAuth';
 
-import { FormDiv, H1, CustomInput, CustomBtn } from '../styles/StyledComponents';
+import { FormDiv, H1, CustomInput, CustomBtn, } from '../styles/StyledComponents';
 
 // material-ui imports
 import { makeStyles } from '@material-ui/core/styles';
 import TextField from '@material-ui/core/TextField';
 
-const AddTruckForm = ({ errors, touched, values, status }) => {
-  const [truck, setTruck] = useState([]);
-  useEffect(() => {
-    status && setTruck(truck => [...truck, status]);
-  }, [status]);
+const AddTruckForm = props => {
+  const [truck, setTruck] = useState({ name:'' });
 
-  // useStyles and classes declared for date pickers
+  const handleChanges = e => {
+    setTruck({...truck, [e.target.name]: e.target.value})
+  };
+
+  const submitForm = e => {
+    e.preventDefault();
+    axiosWithAuth().post('https://food-truck-trakr.herokuapp.com/api/trucks', truck)
+    .then(res => {
+      console.log(res);
+    })
+    .catch(error => console.log(error.response));
+    console.log(truck);
+  };
+
   const useStyles = makeStyles(theme => ({
     container: {
       display: 'flex',
@@ -32,19 +41,20 @@ const AddTruckForm = ({ errors, touched, values, status }) => {
 
   return (
     <FormDiv>
-      <H1>Truck Operator: Add your truck info here!</H1>
+      <form onSubmit = { submitForm }>
+        <H1>Truck Operator: Add your truck info here!</H1>
 
-      <Form>
+        <CustomInput
+          placeholder='Truck Name'
+          id = 'name'
+          type = 'text'
+          name = 'name'
+          onChange = { handleChanges }
+        />
 
-        {/* Truck name */}
-        <Field as={CustomInput} type='text' name='truckName' placeholder='Truck Name' />
-        {touched.truckName && errors.truckName && (
-          <p className='error'>{errors.truckName}</p>
-        )}
-
-        {/* Cuisine Type Selector */}
-        <Field component='select' className='cuisineSelect' name='cuisineSelect'>
-          <option>Please Select a Cuisine Type</option>
+        <h3>What type of cuisine do you offer?</h3>
+        <select name='cuisine'>
+          <option value=''>Please Select a Cuisine Type</option>
           <option value='bbq'>BBQ</option>
           <option value='beer'>Beer</option>
           <option value='breakfast'>Breakfast</option>
@@ -53,87 +63,54 @@ const AddTruckForm = ({ errors, touched, values, status }) => {
           <option value='greek'>Greek</option>
           <option value='pizza'>Pizza</option>
           <option value='tacos'>Tacos</option>
-          <option value='other'>Other</option>
-        </Field>
-        {touched.cuisineSelect && errors.cuisineSelect && <p className='error'>{errors.cuisineSelect}</p>}
+        </select>
 
-        {/* Image upload */}
+        <h3>What is the current location of your truck?</h3>
+        <TruckFormLocation />
 
-        {/* Current location */}
+        <h3>When will you be leaving for your next location?</h3>
 
-        {/* Next location */}
-        <h2>What is the next location for your truck?</h2>
-
-        {/* Departure Time */}
-        <h2>When will you be leaving for your next location?</h2>
         <div className='datePickerContain'>
-          <form className={classes.container} noValidate>
+          {/* <form className={classes.container} noValidate> */}
             <TextField
               id="datetime-local"
               label="Leaving for next location"
               type="datetime-local"
               defaultValue="2019-01-01T00:00"
+              name='departureTime'
               className={classes.textField}
               InputLabelProps={{
-                shrink: true,
+              shrink: true,
               }}
             />
-          </form>
+          {/* </form> */}
         </div>
 
-        {/* Arrival Time */}
-        <h2>When will you be arriving at your next location?</h2>
+        <h3>When will you be arriving at your next location?</h3>
+
         <div className='datePickerContain'>
-          <form className={classes.container} noValidate>
+          {/* <form className={classes.container} noValidate> */}
             <TextField
               id="datetime-local"
-              label="Arriving at next location"
+              label="Leaving for next location"
               type="datetime-local"
               defaultValue="2019-01-01T00:00"
+              name='departureTime'
               className={classes.textField}
               InputLabelProps={{
-                shrink: true,
+              shrink: true,
               }}
             />
-          </form>
+          {/* </form> */}
         </div>
 
-        <CustomBtn type='submit'>Submit your truck info!</CustomBtn>
-
-      </Form>
-
-      {/* Button Linked to Menu Form */}
-      <div className='menuButton'>
-        <CustomBtn>Add menu info for your truck!</CustomBtn>
-      </div>
+        <CustomBtn type='submit'>Submit Your Truck Info!</CustomBtn>
+      </form>
+      
+      <a href='/MenuForm'><CustomBtn>Go to menu entry form!</CustomBtn></a>
 
     </FormDiv>
   )
 }
 
-const FormikAddTruckForm = withFormik({
-  mapPropsToValues({ truckName, cuisineSelect}) {
-    return {
-      truckName: truckName || '',
-      cuisineSelect: cuisineSelect || ''
-    };
-  },
-
-  validationSchema: Yup.object().shape({
-    truckName: Yup.string().required('Please enter a name for your truck!'),
-    cuisineSelect: Yup.string()
-      .oneOf(['bbq', 'beer', 'breakfast', 'burgers', 'dessert', 'greek', 'pizza', 'tacos', 'other'])
-      .required('Please select a quisine type!')
-  }), 
-
-  handleSubmit(values, { setStatus }) {
-    axios
-      .post('', values)
-      .then(res => {
-        setStatus(res.data);
-      })
-      .catch(error => console.log(error.response))
-  }
-})(AddTruckForm);
-
-export default FormikAddTruckForm;
+export default AddTruckForm;
