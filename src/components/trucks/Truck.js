@@ -61,9 +61,18 @@ const Truck = props => {
   const handleExpandClick = () => {
     setExpanded(!expanded);
   };
-
   //this should be pulling from all trucks array in backend
   const truck = trucks.find(truck => props.match.params.id === `${truck.id}`);
+
+  const goToEditForm = () => {
+    props.history.push({
+      pathname: "/edittruckform",
+      state: {
+        name: truck.truckName,
+        currentLocation: truck.address
+      }
+    });
+  };
 
   const remove = () => {
     props.deleteTruck(truck.id);
@@ -105,11 +114,13 @@ const Truck = props => {
           )}
           {props.role === "operator" && (
             <div className="edit-delete-buttons">
-              <Link to="/AddTruckForm">
-                <Button className="edit-btn" color="primary">
-                  Edit Truck
-                </Button>
-              </Link>
+              <Button
+                className="edit-btn"
+                color="primary"
+                onClick={goToEditForm}
+              >
+                Edit Truck
+              </Button>
               <Button className="delete-btn" color="secondary" onClick={remove}>
                 Delete Truck
               </Button>

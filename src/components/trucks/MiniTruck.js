@@ -10,7 +10,7 @@ import {
 import { makeStyles, useTheme } from "@material-ui/core/styles";
 import placeholderTruck from "./../../assets/placeholder-truck.jpg";
 import Ratings from "react-ratings-declarative";
-import Fav from "./Fav";
+import { removeFav } from "../../store/diner/DinerActions";
 import { connect } from "react-redux";
 
 const useStyles = makeStyles(theme => ({
@@ -47,11 +47,8 @@ const MiniTruck = props => {
 
   const [fav, setFav] = useState(false);
 
-  const makeFavorite = () => {
-    // where to get truck object from?
-    // dispatch({ type: ADD_FAVORITE, payload: truck });
-    setFav(!fav);
-    console.log("clicked");
+  const removeFavorite = () => {
+    props.removeFav(props.truck.id);
   };
 
   return (
@@ -108,7 +105,9 @@ const MiniTruck = props => {
                 View Truck
               </Button>
             </Link>
-            {props.role === "diner" && <Fav />}
+            {props.role === "diner" && (
+              <i className="fas fa-heart" onClick={removeFavorite}></i>
+            )}
           </div>
         </CardContent>
       </div>
@@ -122,4 +121,4 @@ const mapStateToProps = state => {
   };
 };
 
-export default connect(mapStateToProps, {})(MiniTruck);
+export default connect(mapStateToProps, { removeFav })(MiniTruck);

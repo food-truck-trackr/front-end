@@ -5,7 +5,7 @@ import { login } from "./../../store/authentication/";
 import { withFormik, Form, Field } from "formik";
 import axiosWithAuth from "./../../utils/AxiosWithAuth";
 import * as yup from "yup";
-import { Router, Link } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 const LoginForm = ({ errors, touched, ...props }) => {
   return (
@@ -34,7 +34,7 @@ const LoginForm = ({ errors, touched, ...props }) => {
 };
 
 const FormikLogin = withFormik({
-  mapPropsToValues({ username, password }) {
+  mapPropsToValues({ username, password, ...props }) {
     return {
       username: username || "",
       password: password || ""

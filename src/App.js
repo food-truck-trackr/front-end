@@ -10,21 +10,23 @@ import AddTruckForm from "./components/operator/AddTruckForm";
 import MenuForm from "./components/operator/MenuForm";
 import Header from "./components/Header";
 import OperatorDashboard from "./components/operator/OperatorDashboard";
+import EditTruckForm from "./components/operator/EditTruckForm";
 
 function App() {
   return (
     <div className="App">
       <Header />
       <Route exact path="/Registration" component={Registration} />
-      <Route exact path="/Login" component={Login} />
+      <Route exact path="/" component={Login} />
       <Route path="/AddTruckForm" component={AddTruckForm} />
       <Route path="/MenuForm" component={MenuForm} />
-      <Route path="/OperatorDashboard" component={OperatorDashboard} />
+      <Route path="/operatordash" component={OperatorDashboard} />
       <Switch>
         <PrivateRoute path="/dinerdash" component={DinerDashboard} />
         <PrivateRoute path="/operatordash" component={OperatorDashboard} />
         <PrivateRoute exact path="/saved" component={FavoriteTrucks} />
         <PrivateRoute path="/truck/:id" component={Truck} />
+        <PrivateRoute path="/edittruckform" component={EditTruckForm} />
       </Switch>
     </div>
   );
