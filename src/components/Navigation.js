@@ -20,6 +20,14 @@ const Navigation = props => {
             </div>
           </>
         )}
+
+        {props.role === "diner" && <Link to="/saved">Favorite Trucks</Link>}
+        {/* <div>
+          <Link to="/AddTruckForm">Temp Link to Operator Add Truck Form</Link>
+        </div>
+        <div>
+          <Link to="/MenuForm">Temp Link to Operator Menu Form</Link>
+        </div> */}
         {props.isAuthenticated && (
           <a
             href="https://zen-kirch-818a22.netlify.com/"
@@ -28,13 +36,6 @@ const Navigation = props => {
             Logout
           </a>
         )}
-        {props.role === "diner" && <Link to="/saved">Favorite Trucks</Link>}
-        {/* <div>
-          <Link to="/AddTruckForm">Temp Link to Operator Add Truck Form</Link>
-        </div>
-        <div>
-          <Link to="/MenuForm">Temp Link to Operator Menu Form</Link>
-        </div> */}
       </div>
     </div>
   );
