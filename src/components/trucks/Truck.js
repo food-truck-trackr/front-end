@@ -20,6 +20,7 @@ import CustomerRatingAvg from "./CustomerRatingAvg";
 import Fav from "./Fav";
 import { connect } from "react-redux";
 import { addFavorite } from "../../store/diner/DinerActions";
+import { deleteTruck } from "../../store/operator/OperatorActions";
 
 const useStyles = makeStyles(theme => ({
   media: {
@@ -38,12 +39,10 @@ const useStyles = makeStyles(theme => ({
   }
 }));
 
-const apiUrl = "AIzaSyAxYI7Q1dv5IBOpnPxezE78oZnYcdGDmug";
-
 const Truck = props => {
-  const [fav, setFav] = useState(false);
   const classes = useStyles();
   const [expanded, setExpanded] = useState(false);
+  console.log("props", props);
 
   const [address, setAddress] = useState("");
   const apiUrl = "AIzaSyAxYI7Q1dv5IBOpnPxezE78oZnYcdGDmug";
@@ -62,14 +61,19 @@ const Truck = props => {
     setExpanded(!expanded);
   };
 
+  //this should be pulling from all trucks array in backend
   const truck = trucks.find(truck => props.match.params.id === `${truck.id}`);
+
+  const remove = () => {
+    props.deleteTruck(truck.id);
+    props.history.push("/OperatorDashboard");
+  };
 
   useEffect(() => {
     console.log(
       reverseGeocode(truck.currentLocation.lat, truck.currentLocation.lng)
     );
   }, []);
-  console.log("props.role", props.role);
 
   return (
     <Card className="truck-card">
@@ -100,8 +104,12 @@ const Truck = props => {
           )}
           {props.role === "operator" && (
             <div className="edit-delete-buttons">
-              <Button className="edit-btn">Edit Truck</Button>
-              <Button className="delete-btn">Delete Truck</Button>
+              <Button className="edit-btn" color="primary">
+                Edit Truck
+              </Button>
+              <Button className="delete-btn" color="secondary" onClick={remove}>
+                Delete Truck
+              </Button>
             </div>
           )}
         </CardContent>
@@ -148,4 +156,4 @@ const mapStateToProps = state => {
   };
 };
 
-export default connect(mapStateToProps, { addFavorite })(Truck);
+export default connect(mapStateToProps, { addFavorite, deleteTruck })(Truck);

@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from "react";
-import { Link } from "react-router-dom";
 import AddressAutocomplete from "../../maps/AddressAutocomplete";
 import { connect } from "react-redux";
 import TruckMap from "../../maps/TruckMap";

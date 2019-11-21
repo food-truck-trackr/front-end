@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import { trucks } from "../../dummydata";
 
 const Fav = ({ className }) => {
   const [fav, setFav] = useState(false);
