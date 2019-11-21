@@ -3,7 +3,6 @@ import axios from "axios";
 import placeholderTruck from "./../../assets/placeholder-truck.jpg";
 import { trucks } from "./../../dummydata";
 import clsx from "clsx";
-// import { makeStyles } from "@material-ui/core/styles";
 import {
   makeStyles,
   Card,
@@ -19,7 +18,6 @@ import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
 import CustomerRating from "../diner/CustomerRating";
 import CustomerRatingAvg from "./CustomerRatingAvg";
 import Fav from "./Fav";
-import { dispatch } from "rxjs/internal/observable/pairs";
 import { connect } from "react-redux";
 import { addFavorite } from "../../store/diner/DinerActions";
 

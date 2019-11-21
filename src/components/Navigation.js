@@ -1,6 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import { connect } from "react-redux";
+import { logout } from "../store/authentication/AuthenticationActions";
 
 const Navigation = props => {
   return (
@@ -18,6 +19,14 @@ const Navigation = props => {
               <Link to="/Registration">Register</Link>
             </div>
           </>
+        )}
+        {props.isAuthenticated && (
+          <a
+            href="https://zen-kirch-818a22.netlify.com/"
+            onClick={props.logout}
+          >
+            Logout
+          </a>
         )}
         {props.role === "diner" && <Link to="/saved">Favorite Trucks</Link>}
         {/* <div>
@@ -38,4 +47,4 @@ const mapStateToProps = state => {
   };
 };
 
-export default connect(mapStateToProps, {})(Navigation);
+export default connect(mapStateToProps, { logout })(Navigation);

@@ -1,23 +1,20 @@
 import React from "react";
-import {Link} from "react-router-dom";
+import { Link } from "react-router-dom";
 
 const OperatorDashboard = () => {
-
-  <div>
+  return (
     <div>
-    {/* Build Truck "Cards" from truck.js with uploaded truck image 
+      <div>
+        {/* Build Truck "Cards" from truck.js with uploaded truck image 
     git request to pul operator.id and bring trucks as array 
     and then map to display minitrucks.js*/}
+      </div>
 
-    </div>
-    
-    {/* Link to addtruckform.js <Link>
+      {/* Link to addtruckform.js <Link>
     <button type="submit">Add Truck</button>
     </Link> */}
-
-  </div>
-
+    </div>
+  );
 };
 
-
-export default OperatorDashboard
+export default OperatorDashboard;

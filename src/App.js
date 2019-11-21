@@ -9,12 +9,9 @@ import Truck from "./components/trucks/Truck";
 import AddTruckForm from "./components/operator/AddTruckForm";
 import MenuForm from "./components/operator/MenuForm";
 import Header from "./components/Header";
+import OperatorDashboard from "./components/operator/OperatorDashboard";
 
 function App() {
-  // const logout = () => {
-  //   dispatch({ type: LOGOUT });
-  // };
-
   return (
     <div className="App">
       <Header />
@@ -24,8 +21,9 @@ function App() {
       <Route path="/MenuForm" component={MenuForm} />
       <Switch>
         <PrivateRoute path="/dinerdash" component={DinerDashboard} />
+        <PrivateRoute path="/operatordash" component={OperatorDashboard} />
         <PrivateRoute exact path="/saved" component={FavoriteTrucks} />
-        <Route path="/truck/:id" render={props => <Truck {...props} />} />
+        <PrivateRoute path="/truck/:id" component={Truck} />
       </Switch>
     </div>
   );
