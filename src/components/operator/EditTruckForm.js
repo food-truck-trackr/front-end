@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import TruckFormCurrentLocation from "./TruckFormCurrentLocation";
 import TruckFormNextLocation from "./TruckFormNextLocation";
+import EditTruckFormLocation from "./EditTruckFormLocation";
 // import axiosWithAuth from '../../utils/AxiosWithAuth';
 
 import {
@@ -71,11 +72,10 @@ const EditTruckForm = props => {
         </select>
 
         <h3>What is the current location of your truck?</h3>
-        <TruckFormCurrentLocation
+        <EditTruckFormLocation
           setCurrentLocation={setCurrentLocation}
-          currentLocation={currentLocation}
+          loc={currentLocation}
           setCurrentCoordinates={setCurrentCoordinates}
-          value={currentLocation}
         />
 
         <h3>When will you be leaving for your next location?</h3>

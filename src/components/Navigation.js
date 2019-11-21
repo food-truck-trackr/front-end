@@ -17,7 +17,7 @@ const Navigation = props => {
         {!props.isAuthenticated && (
           <>
             <div>
-              <Link className="links" to="/Login">
+              <Link className="links" to="/">
                 Login
               </Link>
             </div>
@@ -26,20 +26,14 @@ const Navigation = props => {
                 Register
               </Link>
             </div>
-            <div>
-              <Link className="links" to="/OperatorDashboard">
-                Operator
-              </Link>
-            </div>
-            <div>
-              <Link className="links" to="/DinerDashBoard">
-                Diner
-              </Link>
-            </div>
           </>
         )}
 
-        {props.role === "diner" && <Link to="/saved">Favorite Trucks</Link>}
+        {props.role === "diner" && (
+          <Link to="/saved" className="links">
+            Favorite Trucks
+          </Link>
+        )}
         {/* <div>
           <Link to="/AddTruckForm">Temp Link to Operator Add Truck Form</Link>
         </div>
@@ -48,6 +42,7 @@ const Navigation = props => {
         </div> */}
         {props.isAuthenticated && (
           <a
+            className="links"
             href="https://zen-kirch-818a22.netlify.com/"
             onClick={props.logout}
           >

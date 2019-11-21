@@ -17,10 +17,10 @@ function App() {
     <div className="App">
       <Header />
       <Route exact path="/Registration" component={Registration} />
-      <Route exact path="/Login" component={Login} />
+      <Route exact path="/" component={Login} />
       <Route path="/AddTruckForm" component={AddTruckForm} />
       <Route path="/MenuForm" component={MenuForm} />
-      <Route path="/OperatorDashboard" component={OperatorDashboard} />
+      <Route path="/operatordash" component={OperatorDashboard} />
       <Switch>
         <PrivateRoute path="/dinerdash" component={DinerDashboard} />
         <PrivateRoute path="/operatordash" component={OperatorDashboard} />

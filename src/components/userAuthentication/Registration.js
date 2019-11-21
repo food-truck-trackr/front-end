@@ -136,7 +136,7 @@ const FormikRegistration = withFormik({
       .post("https://food-truck-trakr.herokuapp.com/api/register", person)
       .then(
         props.history.push({
-          pathname: "/Login",
+          pathname: "/",
           state: {
             username: person.username,
             password: person.password
