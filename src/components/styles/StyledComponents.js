@@ -22,6 +22,7 @@ export const AddTruckCard = styled.div`
   align-items: center;
   padding: 2rem;
   background: #FFFFFF;
+  border-radius: 5px;
 `
 
 export const H1 = styled.h1`
