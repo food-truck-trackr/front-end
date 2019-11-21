@@ -21,10 +21,10 @@ function App() {
       <Route path="/MenuForm" component={MenuForm} />
       <Route path="/OperatorDashboard" component={OperatorDashboard} />
       <Switch>
-        <PrivateRoute path="/dinerdash" component={DinerDashboard} />
+        <Route path="/dinerdash" component={DinerDashboard} />
         <PrivateRoute path="/operatordash" component={OperatorDashboard} />
-        <PrivateRoute exact path="/saved" component={FavoriteTrucks} />
-        <PrivateRoute path="/truck/:id" component={Truck} />
+        <Route exact path="/saved" component={FavoriteTrucks} />
+        <Route path="/truck/:id" component={Truck} />
       </Switch>
     </div>
   );
