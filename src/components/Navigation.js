@@ -10,19 +10,19 @@ const Navigation = props => {
     <div className="navigation">
       <div className="links-div">
         <div className="animate">
-          <a href="https://zen-kirch-818a22.netlify.com/" className="links">
+          <a href="https://zen-kirch-818a22.netlify.com/" className="links" id="home">
             Home
           </a>
         </div>
         {!props.isAuthenticated && (
           <>
             <div>
-              <Link className="links" to="/Login">
+              <Link className="links" id="login" to="/Login">
                 Login
               </Link>
             </div>
             <div>
-              <Link className="links" to="/Registration">
+              <Link className="links" id="registration" to="/Registration">
                 Register
               </Link>
             </div>

@@ -1,3 +1,35 @@
-.registration-form {
-  // background-image: url;
+.registration-form{ 
+  width: 300px;
+  padding: 10px;
+  margin: 0 auto;
+  border: 2px solid #FFAD43;
+
+  .form{ 
+    display: flex;
+    flex-wrap: wrap;
+    width: 100%;
+  
+    .field{
+      min-width: 80%;
+      margin: 10px auto;
+      font-size: 16px;
+      // border: 1px solid gray;
+    }
+    .text{
+      color: red;
+      font-size: 12px;
+      margin: -5px auto 0;
+    }
+    #register{
+      color: black;
+      margin-top: 10px;
+      font-weight: bold;
+    }
+    button{
+      width: 100px;
+      margin: 0 auto;
+      font-size: 16px;
+      font-weight: bold;
+    }
+  }
 }
