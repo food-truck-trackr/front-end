@@ -9,6 +9,7 @@ import Truck from "./components/trucks/Truck";
 import AddTruckForm from "./components/operator/AddTruckForm";
 import MenuForm from "./components/operator/MenuForm";
 import Header from "./components/Header";
+import OperatorDashboard from "./components/operator/OperatorDashboard";
 
 function App() {
   // const logout = () => {
@@ -22,6 +23,7 @@ function App() {
       <Route exact path="/Login" component={Login} />
       <Route path="/AddTruckForm" component={AddTruckForm} />
       <Route path="/MenuForm" component={MenuForm} />
+      <Route path="/OperatorDashboard" component={OperatorDashboard} />
       <Switch>
         <PrivateRoute path="/dinerdash" component={DinerDashboard} />
         <PrivateRoute exact path="/saved" component={FavoriteTrucks} />
