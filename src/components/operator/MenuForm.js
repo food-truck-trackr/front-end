@@ -1,86 +1,72 @@
-import React, { useState, useEffect } from 'react';
-import { Form, Field, withFormik } from 'formik';
-import * as Yup from 'yup';
-import axios from 'axios';
+import React, { useState } from 'react';
+// import { Form, Field, withFormik } from 'formik';
+// import * as Yup from 'yup';
+// import axios from 'axios';
 
-import { FormDiv, H1, CustomInput, CustomBtn } from '../styles/StyledComponents';
+import { FormDiv, H1, CustomInput, CustomBtn, CustomLabel, TextArea, MenuList } from '../styles/StyledComponents';
 
-const MenuForm = ({ errors, touched, values, status }) => {
-  const [items, setItems] = useState([]);
-  useEffect(() => {
-    status && setItems(item => [...item, status]);
-  }, [status]);
+const MenuForm = props => {
+  const [items, setItems] = useState({ itemName: '', itemDescription: '', itemPrice: ''});
+  
+  const handleChanges = e => {
+    setItems({...items, [e.target.name]: e.target.value})
+  };
+
+  const submitForm = e => {
+    e.preventDefault();
+    console.log(items)
+  }
 
   return (
     <FormDiv>
-      <H1>Truck Operator: Tell us about the items on your menu!</H1>
+      <form onSubmit = { submitForm }>
+        <H1>Truck Operator: Tell us about the items on your menu!</H1>
 
-      <Form>
-
-        {/* Menu item name */}
-        <Field as={CustomInput} type='text' name='itemName' placeholder='Food Item Name'/>
-        {touched.itemName && errors.itemName && (
-          <p className='error>'>{errors.itemName}</p>
-        )}
+        <CustomInput
+          placeholder='Menu Item Name'
+          id='itemName'
+          type='text'
+          name='itemName'
+          onChange = { handleChanges }
+          value = { items.name }
+        />
 
         {/* Menu item description */}
-        <Field
-          component='textarea'
-          type='text'
+
+        <CustomLabel for='itemDescripton'>Item Description:</CustomLabel>
+        <TextArea
+
+          placeholder='Tell us about your menu item!'
+          id='itemDescription'
           name='itemDescription'
-          placeholder='Enter the desctiption of your delicious food item!'
+          onChange = { handleChanges }
+          value = { items.itemDescription }
         />
-        {touched.itemDescription && errors.itemDescription && (
-          <p className='error'>{errors.itemDescription}</p>
-        )}
+        
 
         {/* Menu item price */}
-        <Field as={CustomInput} type='text' name='itemPrice' placeholder='Item Price'/>
-        {touched.itemPrice && errors.itemPrice && (
-          <p className='error'>{errors.itemPrice}</p>
-        )}
-
-        {/* Menu item image */}
+        <CustomLabel for='itemPrice'>Item Price:</CustomLabel>
+        <CustomInput
+          placeholder='Menu Item Price'
+          id='itemPrice'
+          type='text'
+          name='itemPrice'
+          onChange = { handleChanges }
+          value = { items.price }
+        />
 
         <CustomBtn type='submit'>Submit your menu info!</CustomBtn>
 
-      </Form>
+      </form>
 
-      {items.map(item => (
-        <ul className='menuItemCard'>
-          <li>Item Name: {item.itemName}</li>
-          <li>Description: {item.itemDescription}</li>
-          <li>Price: {item.itemPrice}</li>
-        </ul>
-      ))}
+      <MenuList>
+        <li>Item Name: {items.itemName}</li>
+        <li>Description: {items.itemDescription}</li>
+        <li>Price: {items.itemPrice}</li>
+      </MenuList>
 
     </FormDiv>
   )
 }
 
-const FormikMenuForm = withFormik({
-  mapPropsToValues({ itemName, itemDescription, itemPrice }) {
-    return {
-      itemName: itemName || '',
-      itemDescription: itemDescription || '',
-      itemPrice: itemPrice || ''
-    };
-  },
-
-  validationSchema: Yup.object().shape({
-    itemName: Yup.string().required('Please enter a name for your item!'),
-    itemDescription: Yup.string().required('Please enter a description for your item!'),
-    itemPrice: Yup.string().required('Please enter a price for your item!')
-  }),
-
-  handleSubmit(values, { setStatus }) {
-    axios
-      .post('', values)
-      .then(res => {
-        setStatus(res.data);
-      })
-      .catch(error => console.log(error.response))
-  }
-})(MenuForm);
-
-export default FormikMenuForm;
+export default MenuForm;

@@ -2,8 +2,6 @@ import React from "react";
 import { Link } from "react-router-dom";
 import { connect } from "react-redux";
 import { logout } from "../store/authentication/AuthenticationActions";
-//import { Animated } from "react-animate-css";
-// import { slideInLeft } from "animate.css";
 
 const Navigation = props => {
   return (
@@ -17,7 +15,8 @@ const Navigation = props => {
         {!props.isAuthenticated && (
           <>
             <div>
-              <Link className="links" id="login" to="/Login">
+              <Link className="links" id="login" to="/">
+
                 Login
               </Link>
             </div>
@@ -26,29 +25,18 @@ const Navigation = props => {
                 Register
               </Link>
             </div>
-            {/* <div>
-              <Link className="links" to="/OperatorDashboard">
-                Operator
-              </Link>
-            </div>
-            <div>
-              <Link className="links" to="/DinerDashBoard">
-                Diner
-              </Link>
-            </div> */}
           </>
         )}
 
-        {props.role === "diner" && <Link to="/saved">Favorite Trucks</Link>}
-        {/* <div>
-          <Link to="/AddTruckForm">Temp Link to Operator Add Truck Form</Link>
-        </div>
-        <div>
-          <Link to="/MenuForm">Temp Link to Operator Menu Form</Link>
-        </div> */}
+        {props.role === "diner" && (
+          <Link to="/saved" className="links">
+            Favorite Trucks
+          </Link>
+        )}
         {props.isAuthenticated && (
           <a
-            href="https://zen-kirch-818a22.netlify.com/"
+            className="links"
+            href="https://foodtruck-trackr-marketing.netlify.com/"
             onClick={props.logout}
           >
             Logout

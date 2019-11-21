@@ -1,15 +1,21 @@
 import React from "react";
-import { favTrucks } from "./../../dinerdummydata";
+import { connect } from "react-redux";
 import MiniTruck from "./../trucks/MiniTruck";
 
-const FavoriteTrucks = () => {
+const FavoriteTrucks = props => {
   return (
     <div className="favorite-trucks">
-      {favTrucks.map(truck => {
+      {props.favTrucks.map(truck => {
         return <MiniTruck key={truck.id} truck={truck} />;
       })}
     </div>
   );
 };
 
-export default FavoriteTrucks;
+const mapStateToProps = state => {
+  return {
+    favTrucks: state.diner.favoriteTrucks
+  };
+};
+
+export default connect(mapStateToProps, {})(FavoriteTrucks);
