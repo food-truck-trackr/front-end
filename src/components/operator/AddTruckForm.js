@@ -1,15 +1,11 @@
-import React, { useState, useEffect } from 'react';
-import TruckFormLocation from './TruckFormLocation';
-import axiosWithAuth from '../../utils/AxiosWithAuth';
+import React, { useState } from 'react';
+// import TruckFormLocation from './TruckFormLocation';
+// import axiosWithAuth from '../../utils/AxiosWithAuth';
 
-import { FormDiv, H1, CustomInput, CustomBtn, } from '../styles/StyledComponents';
-
-// material-ui imports
-import { makeStyles } from '@material-ui/core/styles';
-import TextField from '@material-ui/core/TextField';
+import { FormDiv, H1, CustomInput, CustomBtn, AddTruckCard } from '../styles/StyledComponents';
 
 const AddTruckForm = props => {
-  const [truck, setTruck] = useState({ name:'' });
+  const [truck, setTruck] = useState({ name:'', cuisine: '', departureTime: '', arrivalTime: '' });
 
   const handleChanges = e => {
     setTruck({...truck, [e.target.name]: e.target.value})
@@ -17,27 +13,15 @@ const AddTruckForm = props => {
 
   const submitForm = e => {
     e.preventDefault();
-    axiosWithAuth().post('https://food-truck-trakr.herokuapp.com/api/trucks', truck)
-    .then(res => {
-      console.log(res);
-    })
-    .catch(error => console.log(error.response));
+    // axiosWithAuth().post('https://food-truck-trakr.herokuapp.com/api/trucks', truck)
+    // .then(res => {
+    //   console.log(res);
+    // })
+    // .catch(error => console.log(error.response));
+    // props.addNewTruck(truck);
+    // setTruck({ name: '', cuisine: ''})
     console.log(truck);
   };
-
-  const useStyles = makeStyles(theme => ({
-    container: {
-      display: 'flex',
-      flexWrap: 'wrap',
-    },
-    textField: {
-      marginLeft: theme.spacing(1),
-      marginRight: theme.spacing(1),
-      width: 300,
-    },
-  }));
-
-  const classes = useStyles();
 
   return (
     <FormDiv>
@@ -50,10 +34,11 @@ const AddTruckForm = props => {
           type = 'text'
           name = 'name'
           onChange = { handleChanges }
+          value = { truck.name }
         />
 
         <h3>What type of cuisine do you offer?</h3>
-        <select name='cuisine'>
+        <select name='cuisine' id='cuisine' onChange={ handleChanges } value={ truck.cuisine }>
           <option value=''>Please Select a Cuisine Type</option>
           <option value='bbq'>BBQ</option>
           <option value='beer'>Beer</option>
@@ -66,47 +51,41 @@ const AddTruckForm = props => {
         </select>
 
         <h3>What is the current location of your truck?</h3>
-        <TruckFormLocation />
+        {/* <TruckFormLocation /> */}
 
         <h3>When will you be leaving for your next location?</h3>
 
-        <div className='datePickerContain'>
-          {/* <form className={classes.container} noValidate> */}
-            <TextField
-              id="datetime-local"
-              label="Leaving for next location"
-              type="datetime-local"
-              defaultValue="2019-01-01T00:00"
-              name='departureTime'
-              className={classes.textField}
-              InputLabelProps={{
-              shrink: true,
-              }}
-            />
-          {/* </form> */}
-        </div>
+        <CustomInput
+          placeholder='Departure Time'
+          id = 'departureTime'
+          type = 'time'
+          name = 'departureTime'
+          onChange = { handleChanges }
+          value = { truck.departureTime }
+        />
 
         <h3>When will you be arriving at your next location?</h3>
 
-        <div className='datePickerContain'>
-          {/* <form className={classes.container} noValidate> */}
-            <TextField
-              id="datetime-local"
-              label="Leaving for next location"
-              type="datetime-local"
-              defaultValue="2019-01-01T00:00"
-              name='departureTime'
-              className={classes.textField}
-              InputLabelProps={{
-              shrink: true,
-              }}
-            />
-          {/* </form> */}
-        </div>
+        <CustomInput
+          placeholder='Arrival Time'
+          id = 'arrivalTime'
+          type = 'time'
+          name = 'arrivalTime'
+          onChange = { handleChanges }
+          value = { truck.arrivalTime }
+        />
 
         <CustomBtn type='submit'>Submit Your Truck Info!</CustomBtn>
+
       </form>
-      
+
+      <AddTruckCard>
+        <p>Name: {truck.name}</p>
+        <p>Cuisine type: {truck.cuisine}</p>
+        <p>Departure time: {truck.departureTime}</p>
+        <p>Arrival time: {truck.arrivalTime}</p>
+      </AddTruckCard>
+
       <a href='/MenuForm'><CustomBtn>Go to menu entry form!</CustomBtn></a>
 
     </FormDiv>
