@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { Link } from "react-router-dom";
 import axios from "axios";
 import placeholderTruck from "./../../assets/placeholder-truck.jpg";
 import { trucks } from "./../../dummydata";
@@ -104,9 +105,11 @@ const Truck = props => {
           )}
           {props.role === "operator" && (
             <div className="edit-delete-buttons">
-              <Button className="edit-btn" color="primary">
-                Edit Truck
-              </Button>
+              <Link to="/AddTruckForm">
+                <Button className="edit-btn" color="primary">
+                  Edit Truck
+                </Button>
+              </Link>
               <Button className="delete-btn" color="secondary" onClick={remove}>
                 Delete Truck
               </Button>

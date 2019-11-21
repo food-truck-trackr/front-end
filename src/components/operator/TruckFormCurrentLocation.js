@@ -1,19 +1,16 @@
-import React, { useState } from "react";
+import React from "react";
 import PlacesAutocomplete, {
   geocodeByAddress,
   getLatLng
 } from "react-places-autocomplete";
 import { classnames } from "../../utils/helpers";
 
-const TruckFormLocation = props => {
-  const [location, setLocation] = useState("");
-  const [coordinates, setCoordinates] = useState({});
-
+const TruckFormCurrentLocation = props => {
   const handleSelect = async value => {
     const results = await geocodeByAddress(value);
     const latLng = await getLatLng(results[0]);
-    setLocation(value); // this is the human readable address that will be displayed on the truck card
-    setCoordinates(latLng); // this object contains the latitude and longitude that needs to be sent to the backend
+    props.setCurrentLocation(value); // this is the human readable address that will be displayed on the truck card
+    props.setCurrentCoordinates(latLng); // this object contains the latitude and longitude that needs to be sent to the backend
   };
 
   const searchOptions = {
@@ -23,8 +20,8 @@ const TruckFormLocation = props => {
   return (
     <div>
       <PlacesAutocomplete
-        value={location}
-        onChange={setLocation}
+        value={props.currentLocation}
+        onChange={props.setCurrentLocation}
         onSelect={handleSelect}
         searchOptions={searchOptions}
       >
@@ -63,4 +60,4 @@ const TruckFormLocation = props => {
   );
 };
 
-export default TruckFormLocation;
+export default TruckFormCurrentLocation;
