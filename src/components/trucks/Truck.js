@@ -1,20 +1,26 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+import axios from "axios";
 import placeholderTruck from "./../../assets/placeholder-truck.jpg";
 import { trucks } from "./../../dummydata";
 import clsx from "clsx";
-import Card from "@material-ui/core/Card";
-import { makeStyles } from "@material-ui/core/styles";
-import CardHeader from "@material-ui/core/CardHeader";
-import CardMedia from "@material-ui/core/CardMedia";
-import CardContent from "@material-ui/core/CardContent";
-import Collapse from "@material-ui/core/Collapse";
-import CardActions from "@material-ui/core/CardActions";
-import IconButton from "@material-ui/core/IconButton";
+import {
+  makeStyles,
+  Card,
+  Button,
+  CardHeader,
+  CardMedia,
+  CardContent,
+  Collapse,
+  CardActions,
+  IconButton
+} from "@material-ui/core";
 import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
 import CustomerRating from "../diner/CustomerRating";
 import CustomerRatingAvg from "./CustomerRatingAvg";
-import Button from "@material-ui/core/Button";
 import Fav from "./Fav";
+import { connect } from "react-redux";
+import { addFavorite } from "../../store/diner/DinerActions";
+import { deleteTruck } from "../../store/operator/OperatorActions";
 
 const useStyles = makeStyles(theme => ({
   media: {
@@ -34,26 +40,40 @@ const useStyles = makeStyles(theme => ({
 }));
 
 const Truck = props => {
-  console.log(props);
-
-  const [fav, setFav] = useState(false);
   const classes = useStyles();
   const [expanded, setExpanded] = useState(false);
+  console.log("props", props);
+
+  const [address, setAddress] = useState("");
+  const apiUrl = "AIzaSyAxYI7Q1dv5IBOpnPxezE78oZnYcdGDmug";
+  const reverseGeocode = (lat, lng) => {
+    axios
+      .get(
+        `https://maps.googleapis.com/maps/api/geocode/json?latlng=${lat},${lng}&key=${apiUrl}`
+      )
+      .then(res => {
+        setAddress(res.data.results[0].formatted_address);
+      })
+      .catch(err => console.log(err));
+  };
 
   const handleExpandClick = () => {
     setExpanded(!expanded);
   };
 
-  const makeFavorite = () => {
-    // where to get truck object from?
-    // dispatch({ type: ADD_FAVORITE, payload: truck });
-    setFav(!fav);
-    console.log("clicked");
+  //this should be pulling from all trucks array in backend
+  const truck = trucks.find(truck => props.match.params.id === `${truck.id}`);
+
+  const remove = () => {
+    props.deleteTruck(truck.id);
+    props.history.push("/OperatorDashboard");
   };
 
-  const truck = trucks.find(
-    truck => props.match.params.id === `${truck.id}`
-  );
+  useEffect(() => {
+    console.log(
+      reverseGeocode(truck.currentLocation.lat, truck.currentLocation.lng)
+    );
+  }, []);
 
   return (
     <Card className="truck-card">
@@ -65,15 +85,33 @@ const Truck = props => {
       />
       <div className="card-info">
         <CardContent>
-          <p>Average customer rating</p>
-          {/*conditional: if there is no departure time, just return current location, otherwise return
-          
-          */}
-          <p>address</p>
-
-          <Fav />
-          <CustomerRating />
-          <CustomerRatingAvg />
+          <div className="card-location">
+            <p className="bold">Current Location</p>
+            <p>{address}</p>
+          </div>
+          <div className="customer-avg">
+            <p className="avg-title">Average customer rating</p>
+            <CustomerRatingAvg />
+          </div>
+          {props.role === "diner" && (
+            <div class-name="card-rate-heart">
+              <div className="user-rate">
+                <p className="rate-title">Add your rating</p>
+                <CustomerRating />
+              </div>
+              <Fav truck={truck} />
+            </div>
+          )}
+          {props.role === "operator" && (
+            <div className="edit-delete-buttons">
+              <Button className="edit-btn" color="primary">
+                Edit Truck
+              </Button>
+              <Button className="delete-btn" color="secondary" onClick={remove}>
+                Delete Truck
+              </Button>
+            </div>
+          )}
         </CardContent>
       </div>
       <div className="card-menu">
@@ -96,7 +134,7 @@ const Truck = props => {
           <CardContent>
             {truck.truckMenu.map(food => {
               return (
-                <ul className="menu-item">
+                <ul key={food.item} className="menu-item">
                   <div className="foodname-description">
                     <li>{food.item}</li>
                     <li className="description">{food.description}</li>
@@ -112,4 +150,10 @@ const Truck = props => {
   );
 };
 
-export default Truck;
+const mapStateToProps = state => {
+  return {
+    role: state.auth.role
+  };
+};
+
+export default connect(mapStateToProps, { addFavorite, deleteTruck })(Truck);

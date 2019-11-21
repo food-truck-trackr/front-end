@@ -1,4 +1,4 @@
-export const trucks = [
+export const favTrucks = [
   {
     truckName: "Rasha's Truck",
     id: 1,
