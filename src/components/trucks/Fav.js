@@ -1,11 +1,10 @@
 import React, { useState } from "react";
 import { trucks } from "../../dummydata";
 
-const Fav = () => {
+const Fav = ({ className }) => {
   const [fav, setFav] = useState(false);
 
   const makeFavorite = () => {
-    // where to get truck object from?
     // dispatch({ type: ADD_FAVORITE, payload: truck });
     setFav(!fav);
     console.log("clicked");

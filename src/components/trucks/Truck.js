@@ -64,16 +64,12 @@ const Truck = props => {
 
   const truck = trucks.find(truck => props.match.params.id === `${truck.id}`);
 
-  // const makeFavorite = truck => {
-  //   setFav(!fav);
-  //   dispatch({ type: ADD_FAVORITE });
-  // };
-
   useEffect(() => {
     console.log(
       reverseGeocode(truck.currentLocation.lat, truck.currentLocation.lng)
     );
   }, []);
+  console.log("props.role", props.role);
 
   return (
     <Card className="truck-card">
@@ -85,16 +81,22 @@ const Truck = props => {
       />
       <div className="card-info">
         <CardContent>
-          <p>{address}</p>
-          <p>Average customer rating</p>
-
-          <CustomerRatingAvg />
-
+          <div className="card-location">
+            <p className="bold">Current Location</p>
+            <p>{address}</p>
+          </div>
+          <div className="customer-avg">
+            <p className="avg-title">Average customer rating</p>
+            <CustomerRatingAvg />
+          </div>
           {props.role === "diner" && (
-            <>
-              <CustomerRating />
+            <div class-name="card-rate-heart">
+              <div className="user-rate">
+                <p className="rate-title">Add your rating</p>
+                <CustomerRating />
+              </div>
               <Fav truck={truck} />
-            </>
+            </div>
           )}
         </CardContent>
       </div>
@@ -118,7 +120,7 @@ const Truck = props => {
           <CardContent>
             {truck.truckMenu.map(food => {
               return (
-                <ul className="menu-item">
+                <ul key={food.item} className="menu-item">
                   <div className="foodname-description">
                     <li>{food.item}</li>
                     <li className="description">{food.description}</li>

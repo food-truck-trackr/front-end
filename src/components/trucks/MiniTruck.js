@@ -1,11 +1,13 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
-import Card from "@material-ui/core/Card";
+import {
+  Card,
+  Typography,
+  Button,
+  CardMedia,
+  CardContent
+} from "@material-ui/core";
 import { makeStyles, useTheme } from "@material-ui/core/styles";
-import Typography from "@material-ui/core/Typography";
-import Button from "@material-ui/core/Button";
-import CardMedia from "@material-ui/core/CardMedia";
-import CardContent from "@material-ui/core/CardContent";
 import placeholderTruck from "./../../assets/placeholder-truck.jpg";
 import Ratings from "react-ratings-declarative";
 import Fav from "./Fav";
@@ -95,17 +97,19 @@ const MiniTruck = props => {
                 widgetDimension="20px"
               />
             </Ratings>
+          </div>
+          <div className="link-fav">
+            <Link to={`/truck/${props.truck.id}`}>
+              <Button
+                color="primary"
+                variant="contained"
+                className="view-truck-button"
+              >
+                View Truck
+              </Button>
+            </Link>
             <Fav />
           </div>
-          <Link to={`/truck/${props.truck.id}`}>
-            <Button
-              color="primary"
-              variant="contained"
-              className="view-truck-button"
-            >
-              View Truck
-            </Button>
-          </Link>
         </CardContent>
       </div>
     </Card>
