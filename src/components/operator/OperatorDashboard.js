@@ -5,12 +5,12 @@ import { connect } from "react-redux";
 
 const OperatorDashboard = props => {
   return (
-    <div>
+    <div className="dashboard">
       {props.trucks.map(truck => {
-        return <MiniTruck key={truck.id} truck={truck} />;
+        return <div className="cards"><MiniTruck key={truck.id} truck={truck} /></div>;
       })}
-      <div>
-        <Link to="/AddTruckForm">Add Truck</Link>
+      <div className="link-div">
+        <Link className="link" to="/AddTruckForm">Add New Truck</Link>
       </div>
     </div>
   );

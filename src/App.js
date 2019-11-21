@@ -20,6 +20,7 @@ function App() {
       <Route path="/AddTruckForm" component={AddTruckForm} />
       <Route path="/MenuForm" component={MenuForm} />
       <Route path="/OperatorDashboard" component={OperatorDashboard} />
+      <Route path="/DinerDashBoard" component={DinerDashboard} />
       <Switch>
         <PrivateRoute path="/dinerdash" component={DinerDashboard} />
         <PrivateRoute path="/operatordash" component={OperatorDashboard} />
