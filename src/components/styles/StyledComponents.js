@@ -7,13 +7,23 @@
 import styled from "styled-components";
 
 export const FormDiv = styled.div`
-  margin: 0 auto;
+  margin: 0 auto 1rem auto;
   display: flex;
   flex-direction: column;
   align-items: center;
   padding: 2rem;
   background: #d2bba0;
 `;
+
+export const AddTruckCard = styled.div`
+  margin: 1rem auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 2rem;
+  background: #FFFFFF;
+  border-radius: 5px;
+`
 
 export const H1 = styled.h1`
   font-size: 1.5rem;
