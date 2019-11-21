@@ -32,8 +32,10 @@ const MenuForm = props => {
         />
 
         {/* Menu item description */}
+
         <CustomLabel for='itemDescripton'>Item Description:</CustomLabel>
         <TextArea
+
           placeholder='Tell us about your menu item!'
           id='itemDescription'
           name='itemDescription'
@@ -41,6 +43,7 @@ const MenuForm = props => {
           value = { items.itemDescription }
         />
         
+
         {/* Menu item price */}
         <CustomLabel for='itemPrice'>Item Price:</CustomLabel>
         <CustomInput
