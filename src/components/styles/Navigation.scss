@@ -12,13 +12,27 @@
     border-radius: 5px;
   }
 
-  .links:hover{
-    color:white;
-    background-color: #FFAD43;
+  // .links:hover{
+  //   color:white;
+  //   background-color: #FFAD43;
     
+  //}
+  #logo-home{
+    width:100px;
   }
-  #home:hover{
-    //display: none;
-    background-image: url("/public/logo-home.png");
+  #logo-home:hover{
+    zoom: 1.5;
+  }
+  #logo-login{
+    width:100px;
+  }
+  #logo-login:hover{
+    zoom: 1.5;
+  }
+  #logo-register{
+    width:100px;
+  }
+  #logo-register:hover{
+    zoom: 1.5;
   }
 }

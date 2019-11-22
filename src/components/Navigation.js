@@ -13,19 +13,19 @@ const Navigation = props => {
             className="links"
             id="home"
           >
-            Home
+            <img id="logo-home" src="logo-home.png"></img>
           </a>
         </div>
         {!props.isAuthenticated && (
           <>
             <div>
-              <Link className="links" id="login" to="/">
-                Login
+              <Link className="links" id="login" to="/" > 
+                <img id="logo-login" src="logo-login.png"></img>
               </Link>
             </div>
             <div>
               <Link className="links" id="registration" to="/Registration">
-                Register
+                <img id="logo-register" src="logo-register.png"></img>
               </Link>
             </div>
           </>
