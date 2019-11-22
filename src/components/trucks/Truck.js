@@ -76,7 +76,7 @@ const Truck = props => {
 
   const remove = () => {
     props.deleteTruck(truck.id);
-    props.history.push("/OperatorDashboard");
+    props.history.push("/operatordash");
   };
 
   useEffect(() => {

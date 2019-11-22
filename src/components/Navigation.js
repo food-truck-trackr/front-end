@@ -8,7 +8,11 @@ const Navigation = props => {
     <div className="navigation">
       <div className="links-div">
         <div className="animate">
-          <a href="https://foodtruck-trackr-marketing.netlify.com/" className="links" id="home">
+          <a
+            href="https://foodtruck-trackr-marketing.netlify.com/"
+            className="links"
+            id="home"
+          >
             Home
           </a>
         </div>
@@ -16,7 +20,6 @@ const Navigation = props => {
           <>
             <div>
               <Link className="links" id="login" to="/">
-
                 Login
               </Link>
             </div>
