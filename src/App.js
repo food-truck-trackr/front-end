@@ -18,15 +18,14 @@ function App() {
       <Header />
       <Route exact path="/Registration" component={Registration} />
       <Route exact path="/" component={Login} />
-      <Route path="/AddTruckForm" component={AddTruckForm} />
-      <Route path="/MenuForm" component={MenuForm} />
-      <Route path="/operatordash" component={OperatorDashboard} />
       <Switch>
         <PrivateRoute path="/dinerdash" component={DinerDashboard} />
         <PrivateRoute path="/operatordash" component={OperatorDashboard} />
         <PrivateRoute exact path="/saved" component={FavoriteTrucks} />
         <PrivateRoute path="/truck/:id" component={Truck} />
         <PrivateRoute path="/edittruckform" component={EditTruckForm} />
+        <PrivateRoute path="/AddTruckForm" component={AddTruckForm} />
+        <PrivateRoute path="/MenuForm" component={MenuForm} />
       </Switch>
     </div>
   );

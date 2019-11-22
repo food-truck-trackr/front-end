@@ -10,16 +10,13 @@ import { Link } from "react-router-dom";
 const LoginForm = ({ errors, touched, ...props }) => {
   return (
     <div className="login-form">
-      <Form>
-        <Field type="text" name="username" placeholder="username" />
-        {/* {touched.username && errors.username && 
-      (<p className="errors">"Please enter a valid user name."</p>)} */}
-
-        <Field type="password" name="password" placeholder="password" />
-        <p>*Password must be between 6 and 12 characters in length.</p>
-        {/* {touched.password && errors.password && 
-      (<p className="errors">{errors.password}</p>)} */}
-
+      <Form className="form">
+        <Field className="field" type="text" name="username" placeholder="username" />
+        {touched.username && errors.username && (<p className="errors">{errors.username}</p>)}
+        
+        <Field className="field" type="password" name="password" placeholder="password" />
+        {touched.password && errors.password && (<p className="errors">{errors.password}</p>)}
+        
         <button type="submit">Login</button>
         {/* if userName is not registered
       return ALERT - user not found, please register to Login
@@ -45,11 +42,11 @@ const FormikLogin = withFormik({
     username: yup
       .string()
       //.label('username')
-      .required("enter a username"),
+      .required("Username is required!"),
     password: yup
       .string()
       //.label('password')
-      .required("Password is required")
+      .required("Password is required!")
   }),
 
   handleSubmit(values, { props }) {
