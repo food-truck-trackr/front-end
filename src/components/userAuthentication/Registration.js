@@ -14,62 +14,41 @@ const RegForm = ({ values, errors, touched, status, ...props }) => {
 
   return (
     <div className="registration-form">
-      <Form>
-        <Field type="email" name="email" placeholder="email" />
-        {touched.email && errors.email && (
-          <p className="errors">{errors.email}</p>
-        )}
-
-        <Field type="text" name="username" placeholder="username" />
-        {touched.username && errors.username && (
-          <p className="errors">user name is a required field</p>
-        )}
-
-        <Field type="password" name="password" placeholder="password" />
-        <p>*Password must be at least 6 characters in length.</p>
-        {touched.password && errors.password && (
-          <p className="errors">{errors.password}</p>
-        )}
-
-        <Field
-          type="password"
-          name="passwordVerify"
-          placeholder="confirm password"
-        />
-        {touched.passwordVerify && errors.passwordVerify}
+      <Form className="form">
+        
+        <Field className="field email" type="email" name="email" placeholder="email" />
+        {touched.email && errors.email && (<p className="errors">{errors.email}</p>)}
+        
+        <Field className="field userName" type="text" name="username" placeholder="username" />
+        {touched.username && errors.username && (<p className="errors">{errors.username}</p>)}
+        
+        <Field className="field password" type="password" name="password" placeholder="password" />
+        <p className="text">*Password must be at least 6 characters.</p>
+        {touched.password && errors.password && (<p className="errors">{errors.password}</p>)}
+        
+        <Field className="field passwordVerify" type="password" name="passwordVerify" placeholder="confirm password" />
+        {touched.passwordVerify && errors.passwordVerify} 
         {/* && (<p className="errors">"You must confirm your password!"</p>)} */}
 
-        <Field type="text" name="name" placeholder="name" />
-        {touched.name && errors.name && <p className="errors">{errors.name}</p>}
-
-        <div>
-          {/* <label classname="checkbox-container">
+        <Field className="field name" type="text" name="name" placeholder="name" />
+        {touched.name && errors.name && (<p className="errors">{errors.name}</p>)}        
+        
+        {/* <div> */}
+        {/* <label classname="checkbox-container">
             Yes! I would like to receive future promotions and FoodTruck TrackR location updates via text message!</label>
         <Field type="checkbox" name="consent" checked={values.consent}/> */}
-        </div>
-
-        <div>
-          <label className="role">
-            I would like to register as a FoodTruck TrackR{" "}
-          </label>
-          <Field as="select" name="role">
-            <option placeholder="select" default={false} hidden={true}>
-              ...select
-            </option>
-            <option placeholder="select" disabled="disabled" default={false}>
-              ...select
-            </option>
-            <option type="text" value="diner" default={false}>
-              Diner
-            </option>
-            <option type="text" value="operator" default={false}>
-              Operator
-            </option>
-          </Field>
-          {touched.role && errors.role && (
-            <p className="errors">{errors.role}</p>
-          )}
-        </div>
+        {/* </div> */}
+        
+        
+        <label className="text" id="register">
+          I would like to register as a FoodTruck TrackR </label>
+        <Field className="field role-select" as="select" name="role">
+          <option placeholder="select" default={false} hidden={true}>...select</option>
+          <option placeholder="select" disabled="disabled" default={false}>...select</option>
+          <option type="text" value="diner" default={false}>Diner</option>
+          <option type="text" value="operator" default={false}>Operator</option>
+        </Field>
+        {touched.role && errors.role && (<p className="errors">{errors.role}</p>)}
 
         <button type="submit">Register</button>
       </Form>
@@ -93,8 +72,10 @@ const FormikRegistration = withFormik({
     email: yup
       .string()
       .email()
-      .required(),
-    username: yup.string().required(),
+      .required("Email is required"),
+    username: yup
+      .string()
+      .required("Username is required"),
     password: yup
       .string()
       .required("Password is required")
@@ -142,14 +123,6 @@ const FormikRegistration = withFormik({
             password: person.password
           }
         })
-        //if operator.value =true && email/username is unique
-        //register operator and return operator landing page
-        //else if operator.value=true && email/username is not unique
-        //return email/username already registered
-        //else if  email/username is unique
-        //register diner and return diner landing page
-        //else return email/username alread registered
-        //history.push to diner or operator dashboard
       )
       .catch(err => console.log(err.response));
   }
