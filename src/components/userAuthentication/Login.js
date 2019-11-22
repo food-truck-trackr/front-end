@@ -11,12 +11,26 @@ const LoginForm = ({ errors, touched, ...props }) => {
   return (
     <div className="login-form">
       <Form className="form">
-        <Field className="field" type="text" name="username" placeholder="username" />
-        {touched.username && errors.username && (<p className="errors">{errors.username}</p>)}
-        
-        <Field className="field" type="password" name="password" placeholder="password" />
-        {touched.password && errors.password && (<p className="errors">{errors.password}</p>)}
-        
+        <Field
+          className="field"
+          type="text"
+          name="username"
+          placeholder="username"
+        />
+        {touched.username && errors.username && (
+          <p className="errors">{errors.username}</p>
+        )}
+
+        <Field
+          className="field"
+          type="password"
+          name="password"
+          placeholder="password"
+        />
+        {touched.password && errors.password && (
+          <p className="errors">{errors.password}</p>
+        )}
+
         <button type="submit">Login</button>
         {/* if userName is not registered
       return ALERT - user not found, please register to Login
@@ -63,29 +77,6 @@ const FormikLogin = withFormik({
         }
       })
       .catch(err => console.log(err.response));
-
-    //   handleSubmit(values, {setStatus}) {
-    //     axios
-    //     .post("https://food-truck-trakr.herokuapp.com/api/login", values)
-    //     .then(response => {
-    //       console.log(response.data);
-    //       setStatus(response.data);
-    //       // if (status.status === "401") {
-    //       //   return (alert("Please check your username and password and try again."), history.push(Login))
-    //       // }
-    //       //else if (response.data.role === "diner") {
-    //       //   return history.push(DinerDashboard)
-    //       // } else if (response.data.role === "operator") {
-    //       //   return history.push(OperatorDashboard)
-    //       // }
-    //       //if username matches registered user
-    //       //return login user to operator/diner landing page
-    //       //else if username is not found
-    //       //return ALERT - you must register to continue
-    //       //return user to registration page on ALERT clear.
-    //     })
-    //     .catch(err => console.log(err.response));
-    //
   }
 })(LoginForm);
 
